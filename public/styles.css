@@ -59,6 +59,12 @@ footer {
 .poke-card {
     display: grid;
     grid-template-rows: auto auto auto;
+    padding: 5px;
+    border: 2px solid crimson;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    background-color: lightcoral;
 }
 
 .image_container {
@@ -67,8 +73,7 @@ footer {
     gap: 5px;
 }
 
-.gallery {
-    border-radius: 5px;
+.poke-image {
     width: 100%;
 }
 
