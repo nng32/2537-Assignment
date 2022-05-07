@@ -1,4 +1,4 @@
-resultList = [];
+pokemonList = [];
 typeGlobal = "grass";
 nameGlobal = "";
 lowerWeightGlobal = 0;
@@ -6,30 +6,67 @@ upperWeightGlobal = 9000;
 
 function processSingleObject(data) {
     if (typeof(data) == "object") {
-        resultList.push(data);
+        pokemonList.push(data);
     }
+}
+
+function searchByName() {
+    $('#results').empty();
+
+    targetName = $('#poke-name').val();
+
+    console.log(targetType, targetLowerWeight, targetUpperWeight);
+
+    pokemonList.forEach(pokemon => {
+        isNameMatching = targetName == pokemon.name;
+
+        if (isNameMatching) {
+            $('#results').append(
+                `<a class="poke-card" id="main-card-${pokemon.id}" href="./profile/${pokemon.id}">
+                    <h3 class="poke-number">${pokemon.id}</h3>
+                    <img class="poke-image" src="${pokemon.sprites.other['official-artwork']['front_default']}" />
+                    <p class="poke-name">${pokemon.name} ${pokemon.weight}</p>
+                </a>`
+            )
+        };
+    });
 }
 
 function applyFilters() {
     $('#results').empty();
 
-    console.log(typeGlobal, lowerWeightGlobal, upperWeightGlobal);
+    targetType = $('#poke-type option:selected').val();
+    targetLowerWeight = 0;
+    targetUpperWeight = 9000;
 
-    resultList.forEach(pokemon => {
+    if ($('#lower-weight').val() == "") {
+        targetLowerWeight = 0;
+    }
+    else if (!isNaN($('#lower-weight').val())) {
+        targetLowerWeight = parseFloat($('#lower-weight').val());
+    }
+
+    if ($('#upper-weight').val() == "") {
+        targetUpperWeight = 9000;
+    }
+    else if (!isNaN($('#upper-weight').val())) {
+        targetUpperWeight = parseFloat($('#upper-weight').val());
+    }
+
+    console.log(targetType, targetLowerWeight, targetUpperWeight);
+
+    pokemonList.forEach(pokemon => {
         isTypeMatching = false;
 
-        console.log(pokemon.id, pokemon.types)
-
         for (i = 0; i < pokemon.types.length; i++) {
-            if (pokemon.types[i].type.name == typeGlobal) {
+            if (pokemon.types[i].type.name == targetType) {
                 isTypeMatching = true;
             };
         }
 
-        isWeightMatching = pokemon.weight >= lowerWeightGlobal && pokemon.weight <= upperWeightGlobal;
-        isNameMatching = nameGlobal == pokemon.name;
+        isWeightMatching = pokemon.weight >= targetLowerWeight && pokemon.weight <= targetUpperWeight;
 
-        if (isTypeMatching && isWeightMatching && nameGlobal == "" || isNameMatching) {
+        if (isTypeMatching && isWeightMatching) {
             $('#results').append(
                 `<a class="poke-card" id="main-card-${pokemon.id}" href="./profile/${pokemon.id}">
                     <h3 class="poke-number">${pokemon.id}</h3>
@@ -56,39 +93,8 @@ async function display() {
 function setup() {
     display();
 
-    $('#poke-type').change(() => {
-        typeGlobal = $('#poke-type option:selected').val();
-        applyFilters();
-    });
-
-    $('#lower-weight').change(() => {
-        if ($('#lower-weight').val() == "") {
-            lowerWeightGlobal = 0;
-            applyFilters();
-        }
-
-        else if (!isNaN($('#lower-weight').val())) {
-            lowerWeightGlobal = parseFloat($('#lower-weight').val());
-            applyFilters();
-        }
-    });
-
-    $('#upper-weight').change(() => {
-        if ($('#upper-weight').val() == "") {
-            upperWeightGlobal = 9000;
-            applyFilters();
-        }
-
-        else if (!isNaN($('#upper-weight').val())) {
-            upperWeightGlobal = parseFloat($('#upper-weight').val());
-            applyFilters();
-        }
-    });
-
-    $('#poke-name').change(() => {
-        nameGlobal = $('#poke-name').val();
-        applyFilters();
-    })
+    $('#search-filters').click(applyFilters);
+    $('#search-name').click(searchByName);
 }
 
 $(document).ready(setup);
