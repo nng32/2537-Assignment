@@ -6,8 +6,8 @@ function processSingleObject(data) {
         if (data.types[i].type.name == typeGlobal) {
             resultList.push(data.id);
 
-            $('main').append(`<p>${data.name}</p>`);
-            $('main').append(`<img src="${data.sprites.other['official-artwork']['front_default']}" />`)
+            $('#results').append(`<p>${data.name}</p>`);
+            $('#results').append(`<img src="${data.sprites.other['official-artwork']['front_default']}" />`)
         }
     }
 }
@@ -15,7 +15,7 @@ function processSingleObject(data) {
 function display(type) {
     console.log(type);
 
-    $('main').empty();
+    $('#results').empty();
 
     typeGlobal = type;
 

@@ -64,10 +64,13 @@ footer {
     border-radius: 5px;
     text-decoration: none;
     color: black;
+}
+
+.poke-card:hover {
     background-color: lightcoral;
 }
 
-.image_container {
+.image-container {
     display: grid;
     grid-template-columns: auto auto auto;
     gap: 5px;

@@ -8,20 +8,43 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="./search.js"></script>
+    <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
-    <div>
-        <label for="poke-type">Pokemon Type</label>
-        <select id="poke-type">
-            <option value="grass" selected>grass</option>
-            <option value="electric">electric</option>
-            <option value="water">water</option>
-            <option value="dark">dark</option>
-        </select>
-    </div>
+    <header>
+        <h1>
+            Paimon Gallery
+        </h1>
+    </header>
+    <nav>
+        <div>
+            <a href="./index.html" class="navlink">Home</a>
+            <a href="./search.html" class="navlink">Search</a>
+            <a href="#" class="navlink">Link</a>
+        </div>
+        <div>
+            <a href="#" class="navlink">Link</a>
+        </div>
+    </nav>
     <main>
-        <!-- paimons go here -->
+        <div id="search">
+            <label for="poke-type">Pokemon Type</label>
+            <select id="poke-type">
+                <option value="grass" selected>grass</option>
+                <option value="electric">electric</option>
+                <option value="water">water</option>
+                <option value="dark">dark</option>
+            </select>
+        </div>
+        <div id="results">
+            <div id="results">
+                <!-- paimons go here -->
+            </div>
+            <div id="history">
+
+            </div>
+        </div>
     </main>
 </body>
 
