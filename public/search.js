@@ -1,38 +1,93 @@
 resultList = [];
-typeGlobal = "";
+typeGlobal = "grass";
+nameGlobal = "";
+lowerWeightGlobal = 0;
+upperWeightGlobal = 9000;
 
 function processSingleObject(data) {
-    for (i = 0; i < data.types.length; i++) {
-        if (data.types[i].type.name == typeGlobal) {
-            resultList.push(data.id);
-
-            $('#results').append(`<p>${data.name}</p>`);
-            $('#results').append(`<img src="${data.sprites.other['official-artwork']['front_default']}" />`)
-        }
+    if (typeof(data) == "object") {
+        resultList.push(data);
     }
 }
 
-function display(type) {
-    console.log(type);
-
+function applyFilters() {
     $('#results').empty();
 
-    typeGlobal = type;
+    console.log(typeGlobal, lowerWeightGlobal, upperWeightGlobal);
 
-    for (i = 1; i <= 100; i++) {
-        $.ajax({
+    resultList.forEach(pokemon => {
+        isTypeMatching = false;
+
+        console.log(pokemon.id, pokemon.types)
+
+        for (i = 0; i < pokemon.types.length; i++) {
+            if (pokemon.types[i].type.name == typeGlobal) {
+                isTypeMatching = true;
+            };
+        }
+
+        isWeightMatching = pokemon.weight >= lowerWeightGlobal && pokemon.weight <= upperWeightGlobal;
+        isNameMatching = nameGlobal == pokemon.name;
+
+        if (isTypeMatching && isWeightMatching && nameGlobal == "" || isNameMatching) {
+            $('#results').append(
+                `<a class="poke-card" id="main-card-${pokemon.id}" href="./profile/${pokemon.id}">
+                    <h3 class="poke-number">${pokemon.id}</h3>
+                    <img class="poke-image" src="${pokemon.sprites.other['official-artwork']['front_default']}" />
+                    <p class="poke-name">${pokemon.name} ${pokemon.weight}</p>
+                </a>`
+            )
+        };
+    });
+}
+
+async function display() {
+    for (i = 1; i <= 50; i++) {
+        await $.ajax({
             type: 'GET',
             url: `https://pokeapi.co/api/v2/pokemon/${i}`,
             success: processSingleObject
         })
     }
+
+    applyFilters();
 }
 
 function setup() {
-    display($('#poke-type option:selected').val());
+    display();
 
     $('#poke-type').change(() => {
-        display($('#poke-type option:selected').val());
+        typeGlobal = $('#poke-type option:selected').val();
+        applyFilters();
+    });
+
+    $('#lower-weight').change(() => {
+        if ($('#lower-weight').val() == "") {
+            lowerWeightGlobal = 0;
+            applyFilters();
+        }
+
+        else if (!isNaN($('#lower-weight').val())) {
+            lowerWeightGlobal = parseFloat($('#lower-weight').val());
+            applyFilters();
+        }
+    });
+
+    $('#upper-weight').change(() => {
+        if ($('#upper-weight').val() == "") {
+            upperWeightGlobal = 9000;
+            applyFilters();
+        }
+
+        else if (!isNaN($('#upper-weight').val())) {
+            upperWeightGlobal = parseFloat($('#upper-weight').val());
+            applyFilters();
+        }
+    });
+
+    $('#poke-name').change(() => {
+        nameGlobal = $('#poke-name').val();
+        applyFilters();
     })
 }
 

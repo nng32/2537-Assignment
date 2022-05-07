@@ -29,6 +29,10 @@
     </nav>
     <main>
         <div id="search">
+            <h3>Search by Name</h3>
+            <label for="poke-name">Pokemon Name</label>
+            <input id="poke-name" placeholder="Pikachew" />
+            <h3>Or use filters</h3>
             <label for="poke-type">Pokemon Type</label>
             <select id="poke-type">
                 <option value="grass" selected>grass</option>
@@ -36,13 +40,23 @@
                 <option value="water">water</option>
                 <option value="dark">dark</option>
             </select>
+            <label for="lower-weight">Lower Weight</label>
+            <input id="lower-weight" placeholder="0" />
+            <label for="upper-weight">Upper Weight</label>
+            <input id="upper-weight" placeholder="400" />
         </div>
-        <div id="results">
-            <div id="results">
-                <!-- paimons go here -->
+        <div id="results-history">
+            <div>
+                <h3>Search Results</h3>
+                <div id="results">
+                    <!-- paimons go here -->
+                </div>                
             </div>
-            <div id="history">
-
+            <div>
+                <h3>History</h3>
+                <div id="history">
+                    <!-- recent paimons go here -->
+                </div>                
             </div>
         </div>
     </main>

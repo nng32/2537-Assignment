@@ -2,6 +2,11 @@
     box-sizing: border-box;
 }
 
+body {
+    width: 80%;
+    margin: auto;
+}
+
 .homelink {
     display: inline-block;
     text-decoration: none;
@@ -78,6 +83,17 @@ footer {
 
 .poke-image {
     width: 100%;
+}
+
+#results-history {
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+#results {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 5px;
 }
 
 .social_link {
