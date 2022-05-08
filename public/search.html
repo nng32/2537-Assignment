@@ -31,7 +31,7 @@
         <div id="search">
             <h3>Search by Name</h3>
             <label for="poke-name">Pokemon Name</label>
-            <input id="poke-name" placeholder="Pikachew" />
+            <input id="poke-name" placeholder="pikachu" />
             <input type="button" id="search-name" value="Search by Name" />
             <h3>Or use filters</h3>
             <label for="poke-type">Pokemon Type</label>
@@ -57,7 +57,14 @@
             <div>
                 <h3>History</h3>
                 <div id="history">
-                    <!-- recent paimons go here -->
+                    <!-- recent searches go here -->
+                    <div class="history-card history-search">
+                        <p class="history-name">pikachu</p>
+                    </div>
+                    <div class="history-card history-filter">
+                        <p class="history-type">electric</p>
+                        <p><span class="history-lower-weight">0</span>-<span class="history-upper-weight">100</span></p>
+                    </div>
                 </div>                
             </div>
         </div>
