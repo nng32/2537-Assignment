@@ -2,11 +2,6 @@
     box-sizing: border-box;
 }
 
-body {
-    width: 80%;
-    margin: auto;
-}
-
 .homelink {
     display: inline-block;
     text-decoration: none;
@@ -27,8 +22,11 @@ body {
 }
 
 body {
+    width: 80%;
+    margin: auto;
     display: grid;
     grid-template-rows: auto auto auto auto;
+    gap: 5px;
 }
 
 header {
@@ -73,6 +71,11 @@ footer {
 
 .poke-card:hover {
     background-color: lightcoral;
+}
+
+.poke-card:active {
+    background-color: crimson;
+    color: white;
 }
 
 .image-container {

@@ -78,8 +78,8 @@ function applyFilters() {
     });
 }
 
-async function display() {
-    for (i = 1; i <= 50; i++) {
+async function makeRequest() {
+    for (i = 1; i <= 200; i++) {
         await $.ajax({
             type: 'GET',
             url: `https://pokeapi.co/api/v2/pokemon/${i}`,
@@ -91,7 +91,7 @@ async function display() {
 }
 
 function setup() {
-    display();
+    makeRequest();
 
     $('#search-filters').click(applyFilters);
     $('#search-name').click(searchByName);
