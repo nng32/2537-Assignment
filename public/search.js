@@ -30,8 +30,6 @@ function searchByName() {
             )
         };
     });
-
-    saveNameToHistory();
 }
 
 function applyFilters() {
@@ -78,16 +76,19 @@ function applyFilters() {
             )
         };
     });
-
-    saveFilterToHistory();
 }
 
 function saveNameToHistory() {
     nameToSave = $('#poke-name').val();
 
     $('#history').prepend(
-        `<div class="history-card history-search">
-            <p class="history-name">${nameToSave}</p>
+        `<div class="history-card">
+            <div class="history-search">
+                <p class="history-name">${nameToSave}</p>
+            </div>
+            <div class="history-remove">
+                <p>Remove</p>
+            </div>
         </div>`
     )
 }
@@ -105,9 +106,14 @@ function saveFilterToHistory() {
     upperWeightToSave = $('#upper-weight').val();
 
     $('#history').prepend(
-        `<div class="history-card history-filter">
-            <p class="history-type">${typeToSave}</p>
-            <p><span class="history-lower-weight">${lowerWeightToSave}</span>-<span class="history-upper-weight">${upperWeightToSave}</span></p>
+        `<div class="history-card">
+            <div class="history-filter">
+                <p class="history-type">${typeToSave}</p>
+                <p>of weight <span class="history-lower-weight">${lowerWeightToSave}</span>-<span class="history-upper-weight">${upperWeightToSave}</span></p>
+            </div>
+            <div class="history-remove">
+                <p>Remove</p>
+            </div>
         </div>`
     )
 }
@@ -122,6 +128,15 @@ function loadFilterFromHistory() {
     $('#upper-weight').val(upperWeightToLoad);
 
     applyFilters();
+}
+
+function removeFromHistory() {
+    console.log("removed from history");
+    $(this).parent().remove();
+}
+
+function clearHistory() {
+    $('#history').empty();
 }
 
 async function makeRequest() {
@@ -139,11 +154,20 @@ async function makeRequest() {
 function setup() {
     makeRequest();
 
-    $('#search-filters').click(applyFilters);
-    $('#search-name').click(searchByName);
+    $('#search-filters').click(() => {
+        applyFilters();
+        saveFilterToHistory();
+    });
+    $('#search-name').click(() => {
+        searchByName();
+        saveNameToHistory();
+    });
 
     $('body').on('click', '.history-search', loadNameFromHistory);
     $('body').on('click', '.history-filter', loadFilterFromHistory);
+
+    $('body').on('click', '.history-remove', removeFromHistory);
+    $('body').on('click', '#clear-history', clearHistory);
 }
 
 $(document).ready(setup);

@@ -64,6 +64,11 @@ footer {
     grid-template-rows: auto auto auto;
 }
 
+.history-card {
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+
 .poke-card, .history-card {
     padding: 5px;
     border: 2px solid crimson;
@@ -72,11 +77,17 @@ footer {
     color: black;
 }
 
-.poke-card:hover, .history-card:hover {
-    background-color: lightcoral;
+.history-card > div {
+    border-radius: 5px;
+    padding: 5px;
 }
 
-.poke-card:active, .history-card:active {
+.poke-card:hover, .history-card > div:hover {
+    background-color: lightcoral;
+    cursor: pointer;
+}
+
+.poke-card:active, .history-card > div:active {
     background-color: crimson;
     color: white;
 }
