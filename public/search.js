@@ -78,6 +78,25 @@ function applyFilters() {
     });
 }
 
+function loadNameFromHistory() {
+    nameToLoad = $(this).children().html();
+
+    $('#poke-name').val(nameToLoad);
+    searchByName();
+}
+
+function loadFilterFromHistory() {
+    typeToLoad = $(this).find('.history-type').html();
+    lowerWeightToLoad = $(this).find('.history-lower-weight').html();
+    upperWeightToLoad = $(this).find('.history-upper-weight').html();
+
+    $('#poke-type').val(typeToLoad);
+    $('#lower-weight').val(lowerWeightToLoad);
+    $('#upper-weight').val(upperWeightToLoad);
+
+    applyFilters();
+}
+
 async function makeRequest() {
     for (i = 1; i <= 200; i++) {
         await $.ajax({
@@ -95,6 +114,9 @@ function setup() {
 
     $('#search-filters').click(applyFilters);
     $('#search-name').click(searchByName);
+
+    $('body').on('click', '.history-search', loadNameFromHistory);
+    $('body').on('click', '.history-filter', loadFilterFromHistory);
 }
 
 $(document).ready(setup);
