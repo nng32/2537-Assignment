@@ -30,6 +30,8 @@ function searchByName() {
             )
         };
     });
+
+    saveNameToHistory();
 }
 
 function applyFilters() {
@@ -76,6 +78,18 @@ function applyFilters() {
             )
         };
     });
+
+    saveFilterToHistory();
+}
+
+function saveNameToHistory() {
+    nameToSave = $('#poke-name').val();
+
+    $('#history').prepend(
+        `<div class="history-card history-search">
+            <p class="history-name">${nameToSave}</p>
+        </div>`
+    )
 }
 
 function loadNameFromHistory() {
@@ -83,6 +97,19 @@ function loadNameFromHistory() {
 
     $('#poke-name').val(nameToLoad);
     searchByName();
+}
+
+function saveFilterToHistory() {
+    typeToSave = $('#poke-type').val();
+    lowerWeightToSave = $('#lower-weight').val();
+    upperWeightToSave = $('#upper-weight').val();
+
+    $('#history').prepend(
+        `<div class="history-card history-filter">
+            <p class="history-type">${typeToSave}</p>
+            <p><span class="history-lower-weight">${lowerWeightToSave}</span>-<span class="history-upper-weight">${upperWeightToSave}</span></p>
+        </div>`
+    )
 }
 
 function loadFilterFromHistory() {
