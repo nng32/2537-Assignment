@@ -13,7 +13,12 @@ function processSingleObject(data) {
 function searchByName() {
     $('#results').empty();
 
-    targetName = $('#poke-name').val();
+    targetName = $('#poke-name').val().toLowerCase();
+
+    if (targetName == "") {
+        targetName = "pikachu";
+        $('#poke-name').val('pikachu');
+    }
 
     console.log(targetType, targetLowerWeight, targetUpperWeight);
 
@@ -25,7 +30,7 @@ function searchByName() {
                 `<a class="poke-card" id="main-card-${pokemon.id}" href="./profile/${pokemon.id}">
                     <h3 class="poke-number">${pokemon.id}</h3>
                     <img class="poke-image" src="${pokemon.sprites.other['official-artwork']['front_default']}" />
-                    <p class="poke-name">${pokemon.name} ${pokemon.weight}</p>
+                    <p class="poke-name">${pokemon.name}</p>
                 </a>`
             )
         };
@@ -39,17 +44,19 @@ function applyFilters() {
     targetLowerWeight = 0;
     targetUpperWeight = 9000;
 
-    if ($('#lower-weight').val() == "") {
+    if ($('#lower-weight').val() == "" || isNaN($('#lower-weight').val())) {
         targetLowerWeight = 0;
+        $('#lower-weight').val('0');
     }
-    else if (!isNaN($('#lower-weight').val())) {
+    else {
         targetLowerWeight = parseFloat($('#lower-weight').val());
     }
 
-    if ($('#upper-weight').val() == "") {
+    if ($('#upper-weight').val() == "" || isNaN($('#upper-weight').val())) {
         targetUpperWeight = 9000;
+        $('#upper-weight').val('9000');
     }
-    else if (!isNaN($('#upper-weight').val())) {
+    else {
         targetUpperWeight = parseFloat($('#upper-weight').val());
     }
 
@@ -71,7 +78,7 @@ function applyFilters() {
                 `<a class="poke-card" id="main-card-${pokemon.id}" href="./profile/${pokemon.id}">
                     <h3 class="poke-number">${pokemon.id}</h3>
                     <img class="poke-image" src="${pokemon.sprites.other['official-artwork']['front_default']}" />
-                    <p class="poke-name">${pokemon.name} ${pokemon.weight}</p>
+                    <p class="poke-name">${pokemon.name}</p>
                 </a>`
             )
         };
@@ -140,14 +147,15 @@ function clearHistory() {
 }
 
 async function makeRequest() {
-    for (i = 1; i <= 200; i++) {
+    for (i = 1; i <= 251; i++) {
         await $.ajax({
             type: 'GET',
             url: `https://pokeapi.co/api/v2/pokemon/${i}`,
             success: processSingleObject
         })
     }
-
+    
+    $('#loading-message').remove();
     applyFilters();
 }
 

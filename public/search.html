@@ -18,14 +18,8 @@
         </h1>
     </header>
     <nav>
-        <div>
-            <a href="./index.html" class="navlink">Home</a>
-            <a href="./search.html" class="navlink">Search</a>
-            <a href="#" class="navlink">Link</a>
-        </div>
-        <div>
-            <a href="#" class="navlink">Link</a>
-        </div>
+        <a href="./index.html" class="navlink">Home</a>
+        <a href="./search.html" class="navlink">Search</a>
     </nav>
     <main>
         <div id="search">
@@ -34,22 +28,35 @@
             <input id="poke-name" type="text" placeholder="pikachu" />
             <input type="button" id="search-name" value="Search by Name" />
             <h3>Or use filters</h3>
-            <label for="poke-type">Pokemon Type</label>
-            <select id="poke-type">
-                <option value="grass" selected>grass</option>
-                <option value="electric">electric</option>
-                <option value="water">water</option>
-                <option value="dark">dark</option>
-            </select>
-            <label for="lower-weight">Lower Weight</label>
-            <input id="lower-weight" type="text" placeholder="0" />
-            <label for="upper-weight">Upper Weight</label>
-            <input id="upper-weight" type="text" placeholder="9000" />
-            <input type="button" id="search-filters" value="Search using Filters" />
+            <div id="filter-options">
+                <span>
+                    <label for="poke-type">Pokemon Type</label>
+                    <select id="poke-type">
+                        <option value="grass" selected>grass</option>
+                        <option value="electric">electric</option>
+                        <option value="water">water</option>
+                        <option value="dark">dark</option>
+                    </select>                    
+                </span>
+                <span>
+                    <label for="lower-weight">Lower Weight</label>
+                    <input id="lower-weight" type="text" placeholder="0" />                    
+                </span>
+                <span>
+                    <label for="upper-weight">Upper Weight</label>
+                    <input id="upper-weight" type="text" placeholder="9000" />                    
+                </span>
+                <span>
+                    <input type="button" id="search-filters" value="Search using Filters" />                     
+                </span>
+            </div>
         </div>
         <div id="results-history">
             <div>
                 <h3>Search Results</h3>
+                <div id="loading-message">
+                    Please wait warmly...
+                </div>
                 <div id="results">
                     <!-- paimons go here -->
                 </div>                
@@ -63,6 +70,14 @@
             </div>
         </div>
     </main>
+    <footer>
+        <p>
+            &copy;2022 UMP45
+        </p>
+        <p>
+            This website uses the PokeAPI.
+        </p>
+    </footer>
 </body>
 
 </html>

@@ -37,6 +37,7 @@ nav {
     background-color: black;
     display: grid;
     grid-template-columns: auto auto;
+    text-align: center;
 }
 
 footer {
@@ -85,15 +86,18 @@ input[type="button"]:active {
 
 .history-card {
     display: grid;
-    grid-template-columns: 80% 20%;
+    grid-template-columns: 70% 30%;
 }
 
 .poke-card, .history-card {
-    padding: 5px;
     border: 2px solid crimson;
     border-radius: 5px;
     text-decoration: none;
     color: black;
+}
+
+.poke-card {
+    padding: 5px;
 }
 
 .history-card > div {
@@ -124,7 +128,7 @@ input[type="button"]:active {
 
 #results-history {
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 70% 30%;
     gap: 10px;
 }
 
@@ -145,9 +149,8 @@ input[type="button"]:active {
     width: 100%;
 }
 
-#profile-stats {
-    display: grid;
-    grid-template-columns: auto auto auto;
+#profile-image {
+    max-width: 100%;
 }
 
 .social_link {
@@ -156,15 +159,35 @@ input[type="button"]:active {
 }
 
 @media screen and (max-width: 500px) {
-    .image_container {
-        flex-direction: column;
+    body {
+        width: 90%;
     }
 
     nav {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: auto;
     }
 
-    .navlink {
-        display: block;
+    #search-name {
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    #search-filters {
+        width: 100%;
+    }
+
+    #results-history {
+        grid-template-columns: auto;
+    }
+
+    #results {
+        grid-template-columns: auto auto;
+    }
+
+    #filter-options {
+        display: grid;
+        grid-template-columns: auto;
+        gap: 5px;
     }
 }

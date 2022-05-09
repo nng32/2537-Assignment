@@ -10,7 +10,7 @@ function processSingleObject(data) {
 
 function makeRequest() {
     for (i = 0; i < 9; i++) {
-        randomID = Math.floor(Math.random() * 1000);
+        randomID = Math.floor(Math.random() * 898) + 1;
 
         console.log(randomID);
 
