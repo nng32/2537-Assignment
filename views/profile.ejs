@@ -4,16 +4,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokemon</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
-    <h3>#<%= id %></h3>
-    <p><%= name %></p>
-    <img src="<%= img_path %>" alt="">
-    <p>
-        HP: <%= hp %>
-        <progress id="hp" value="<%= hp %>" max="255">
-            <%= hp %>%
-        </progress>
-    </p>
+    <header>
+        <h1>
+            Pokemon Gallery
+        </h1>
+    </header>
+    <nav>
+        <div>
+            <a href="../index.html" class="navlink">Home</a>
+            <a href="../search.html" class="navlink">Search</a>
+            <a href="#" class="navlink">Link</a>
+        </div>
+        <div>
+            <a href="#" class="navlink">Link</a>
+        </div>
+    </nav>
+    <article>
+        <h3 id="profile-id">#<%= id %></h3>
+        <p id="profile-name"><%= name %></p>
+        <img id="profile-image" src="<%= img_path %>" alt="">
+        <table id="profile-stats">
+            <tr>
+                <td>
+                    Height
+                </td>
+                <td>
+
+                </td>
+                <td>
+                    <%= height %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Weight
+                </td>
+                <td>
+            
+                </td>
+                <td>
+                    <%= weight %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    HP
+                </td>
+                <td>
+                    <progress id="hp" value="<%= hp %>" max="255">
+                        <%= hp %>%
+                    </progress>
+                </td>
+                <td>
+                    <%= hp %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Attack
+                </td>
+                <td>
+                    <progress id="atk" value="<%= atk %>" max="150">
+                        <%= atk %>%
+                    </progress>
+                </td>
+                <td>
+                    <%= atk %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Defense
+                </td>
+                <td>
+                    <progress id="def" value="<%= def %>" max="150">
+                        <%= def %>%
+                    </progress>
+                </td>
+                <td>
+                    <%= def %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Special Attack
+                </td>
+                <td>
+                    <progress id="spatk" value="<%= spatk %>" max="150">
+                        <%= spatk %>%
+                    </progress>
+                </td>
+                <td>
+                    <%= spatk %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Special Defense
+                </td>
+                <td>
+                    <progress id="spdef" value="<%= spdef %>" max="150">
+                        <%= spdef %>%
+                    </progress>
+                </td>
+                <td>
+                    <%= spdef %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Speed
+                </td>
+                <td>
+                    <progress id="spd" value="<%= spd %>" max="150">
+                        <%= spd %>%
+                    </progress>
+                </td>
+                <td>
+                    <%= spd %>
+                </td>
+            </tr>
+        </table>
+    </article>
+    <footer>
+        <p>
+            &copy;2022 UMP45
+        </p>
+    </footer>
 </body>
 </html>

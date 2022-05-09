@@ -33,11 +33,48 @@ app.get('/profile/:id', (req, res) => {
                 return object.base_stat;
             });
 
+            atk = data.stats.filter((object) => {
+                return object.stat.name == 'attack';
+            }).map((object) => {
+                return object.base_stat;
+            });
+
+            def = data.stats.filter((object) => {
+                return object.stat.name == 'defense';
+            }).map((object) => {
+                return object.base_stat;
+            });
+
+            spatk = data.stats.filter((object) => {
+                return object.stat.name == 'special-attack';
+            }).map((object) => {
+                return object.base_stat;
+            });
+
+            spdef = data.stats.filter((object) => {
+                return object.stat.name == 'special-defense';
+            }).map((object) => {
+                return object.base_stat;
+            });
+
+            spd = data.stats.filter((object) => {
+                return object.stat.name == 'speed';
+            }).map((object) => {
+                return object.base_stat;
+            });
+
             res.render('profile.ejs', {
                 'id': req.params.id,
                 'name': data.name,
                 'img_path': data.sprites.other['official-artwork']['front_default'],
-                'hp': hp[0]
+                'height': data.height,
+                'weight': data.weight,
+                'hp': hp[0],
+                'atk': atk[0],
+                'def': def[0],
+                'spatk': spatk[0],
+                'spdef': spdef[0],
+                'spd': spd[0]
             })
         })
     })
