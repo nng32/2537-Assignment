@@ -6,7 +6,7 @@ app.set('view engine', 'ejs');
 
 app.use(express.static('./public'));
 
-app.listen(5000, function (err) {
+app.listen(process.env.PORT || 5000, function (err) {
     if (err) console.log(err);
 })
 
