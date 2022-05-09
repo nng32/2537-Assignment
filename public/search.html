@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search</title>
+    <title>Search for Pokemon</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="./search.js"></script>
@@ -54,6 +54,17 @@
         <div id="results-history">
             <div>
                 <h3>Search Results</h3>
+                <div id="page-controls">
+                    <input type="button" value="first" class="page-button first" />
+                    <input type="button" value="prev" class="page-button prev" />
+                
+                    <span id="page-numbers">
+                
+                    </span>
+                
+                    <input type="button" value="next" class="page-button next" />
+                    <input type="button" value="last" class="page-button last" />
+                </div>
                 <div id="loading-message">
                     Please wait warmly...
                 </div>

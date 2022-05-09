@@ -1,8 +1,10 @@
 pokemonList = [];
+resultList = [];
 typeGlobal = "grass";
 nameGlobal = "";
 lowerWeightGlobal = 0;
 upperWeightGlobal = 9000;
+currentPage = 1;
 
 function processSingleObject(data) {
     if (typeof(data) == "object") {
@@ -10,8 +12,73 @@ function processSingleObject(data) {
     }
 }
 
-function searchByName() {
+function paginateMenu() {
+    lastPage = Math.ceil(resultList.length / 10);
+
+    currentPage = 1;
+
+    $('#page-numbers').empty();
+
+    for (i = 1; i <= lastPage; i++) {
+        pageButton = `<input type="button" value="${i}" class="page-button page-${i}" />`
+        $('#page-numbers').append(pageButton)
+    }
+
+    $('.page-1').css('color', 'crimson');
+}
+
+function changePage() {
+    buttonPressed = $(this).val();
+
+    $(`.page-${currentPage}`).css('color', 'black');
+
+    if (buttonPressed == "first") {
+        currentPage = 1
+    }
+    else if (buttonPressed == "last") {
+        currentPage = lastPage
+    }
+    else if (buttonPressed == "prev") {
+        if (currentPage > 1) {
+            currentPage--
+        }
+    }
+    else if (buttonPressed == "next") {
+        if (currentPage < lastPage) {
+            currentPage++
+        }
+    }
+    else {
+        currentPage = Number(buttonPressed)
+    }
+
+    $('.prev').show();
+    $('.next').show();
+
+    $(`.page-${currentPage}`).css('color', 'crimson');
+
+    populateResults(currentPage);
+}
+
+function populateResults(page) {
+    startIndex = 10 * (page - 1);
+    stopIndex = Math.min(10 * (page - 1) + 10, resultList.length);
+
     $('#results').empty();
+
+    for (i = startIndex; i < stopIndex; i++) {
+        $('#results').append(
+            `<a class="poke-card" id="main-card-${resultList[i].id}" href="./profile/${resultList[i].id}">
+                    <h3 class="poke-number">${resultList[i].id}</h3>
+                    <img class="poke-image" src="${resultList[i].sprites.other['official-artwork']['front_default']}" />
+                    <p class="poke-name">${resultList[i].name}</p>
+            </a>`
+        )
+    }
+}
+
+function searchByName() {
+    resultList = [];
 
     targetName = $('#poke-name').val().toLowerCase();
 
@@ -23,22 +90,19 @@ function searchByName() {
     console.log(targetType, targetLowerWeight, targetUpperWeight);
 
     pokemonList.forEach(pokemon => {
-        isNameMatching = targetName == pokemon.name;
+        isNameMatching = pokemon.name.includes(targetName);
 
         if (isNameMatching) {
-            $('#results').append(
-                `<a class="poke-card" id="main-card-${pokemon.id}" href="./profile/${pokemon.id}">
-                    <h3 class="poke-number">${pokemon.id}</h3>
-                    <img class="poke-image" src="${pokemon.sprites.other['official-artwork']['front_default']}" />
-                    <p class="poke-name">${pokemon.name}</p>
-                </a>`
-            )
+            resultList.push(pokemon)
         };
     });
+
+    paginateMenu();
+    populateResults(1);
 }
 
 function applyFilters() {
-    $('#results').empty();
+    resultList = [];
 
     targetType = $('#poke-type option:selected').val();
     targetLowerWeight = 0;
@@ -74,15 +138,12 @@ function applyFilters() {
         isWeightMatching = pokemon.weight >= targetLowerWeight && pokemon.weight <= targetUpperWeight;
 
         if (isTypeMatching && isWeightMatching) {
-            $('#results').append(
-                `<a class="poke-card" id="main-card-${pokemon.id}" href="./profile/${pokemon.id}">
-                    <h3 class="poke-number">${pokemon.id}</h3>
-                    <img class="poke-image" src="${pokemon.sprites.other['official-artwork']['front_default']}" />
-                    <p class="poke-name">${pokemon.name}</p>
-                </a>`
-            )
+            resultList.push(pokemon);
         };
     });
+
+    paginateMenu();
+    populateResults(1);
 }
 
 function saveNameToHistory() {
@@ -138,7 +199,6 @@ function loadFilterFromHistory() {
 }
 
 function removeFromHistory() {
-    console.log("removed from history");
     $(this).parent().remove();
 }
 
@@ -154,7 +214,7 @@ async function makeRequest() {
             success: processSingleObject
         })
     }
-    
+
     $('#loading-message').remove();
     applyFilters();
 }
@@ -176,6 +236,8 @@ function setup() {
 
     $('body').on('click', '.history-remove', removeFromHistory);
     $('body').on('click', '#clear-history', clearHistory);
+
+    $('body').on('click', '.page-button', changePage);
 }
 
 $(document).ready(setup);
