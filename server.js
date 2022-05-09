@@ -11,7 +11,7 @@ app.listen(5000, function (err) {
 })
 
 app.get('/', function (req, res) {
-    res.send('GET request to homepage');
+    res.send('Visit index.html to view homepage');
 })
 
 app.get('/profile/:id', (req, res) => {
