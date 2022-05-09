@@ -43,6 +43,25 @@ footer {
     text-align: center;
 }
 
+input[type="text"], input[type="button"], select {
+    border: 2px solid crimson;
+    border-radius: 5px;
+    background-color: white;
+}
+
+input[type="button"]:hover {
+    background-color: lightcoral;
+}
+
+input[type="text"]:hover, select:hover {
+    border-color: fuchsia;
+}
+
+input[type="button"]:active {
+    background-color: crimson;
+    color: white;
+}
+
 .navlink {
     color: white;
     text-decoration: none;
@@ -119,6 +138,11 @@ footer {
     display: grid;
     grid-template-columns: auto;
     gap: 5px;
+}
+
+#clear-history {
+    margin-bottom: 5px;
+    width: 100%;
 }
 
 .social_link {
