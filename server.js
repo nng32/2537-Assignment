@@ -123,9 +123,9 @@ app.get('/timeline/update/:id', (req, res) => {
     console.log(req.params.id);
 
     timelineModel.updateOne({
-        '_id': req.params.id
+        _id: req.params.id
     }, {
-        $inc: {'hits': 1}
+        $inc: {hits: 1}
     }, (err, data) => {
         if (err) 
         {
@@ -133,7 +133,6 @@ app.get('/timeline/update/:id', (req, res) => {
         }
         else 
         {
-            console.log(data);
             res.send("Hits +1");
         }
     })
@@ -142,13 +141,10 @@ app.get('/timeline/update/:id', (req, res) => {
 app.get('/timeline/remove/:id', (req, res) => {
     console.log(req.params.id);
 
-    timelineModel.remove({
+    timelineModel.deleteOne({
         _id: req.params.id
-    }, {
-        $inc: { hits: 1 }
     }, (err, data) => {
         if (err) console.log(err);
-        else console.log(data);
         res.send("Removed");
     })
 })
