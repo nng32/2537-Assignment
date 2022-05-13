@@ -222,13 +222,15 @@ async function makeRequest() {
 }
 
 function insertIntoTimeline(pokeType) {
+    let timestamp = new Date();
+
     $.ajax({
         url: "http://localhost:5000/timeline/insert",
         type: "PUT",
         data: {
             text: `Client has filtered for type ${pokeType}`,
             hits: 1,
-            time: `1`
+            time: timestamp.toGMTString()
         },
         success: (response) => {
             console.log(response);
