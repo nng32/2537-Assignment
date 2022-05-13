@@ -6,7 +6,7 @@ function loadTimeline() {
             console.log("YOUR DATA" + data);
 
             for (i = 0; i < data.length; i++) {
-                $("article").prepend(`
+                $("#timeline-container").prepend(`
                     <div class="timeline-card">
                         <p>Text: ${data[i].text}</p>
                         <p>Hits: <span class="timeline-hits">${data[i].hits}</span></p>

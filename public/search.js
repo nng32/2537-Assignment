@@ -99,6 +99,8 @@ function searchByName() {
 
     paginateMenu();
     populateResults(1);
+
+    insertNameIntoTimeline(targetName);
 }
 
 function applyFilters() {
@@ -145,7 +147,7 @@ function applyFilters() {
     paginateMenu();
     populateResults(1);
 
-    insertIntoTimeline(targetType);
+    insertTypeIntoTimeline(targetType);
 }
 
 function saveNameToHistory() {
@@ -221,7 +223,7 @@ async function makeRequest() {
     applyFilters();
 }
 
-function insertIntoTimeline(pokeType) {
+function insertTypeIntoTimeline(pokeType) {
     let timestamp = new Date();
 
     $.ajax({
@@ -229,6 +231,23 @@ function insertIntoTimeline(pokeType) {
         type: "PUT",
         data: {
             text: `Client has filtered for type ${pokeType}`,
+            hits: 1,
+            time: timestamp.toGMTString()
+        },
+        success: (response) => {
+            console.log(response);
+        }
+    })
+}
+
+function insertNameIntoTimeline(pokeName) {
+    let timestamp = new Date();
+
+    $.ajax({
+        url: "http://localhost:5000/timeline/insert",
+        type: "PUT",
+        data: {
+            text: `Client has filtered for name ${pokeName}`,
             hits: 1,
             time: timestamp.toGMTString()
         },

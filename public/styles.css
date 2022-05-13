@@ -89,14 +89,14 @@ input[type="button"]:active {
     grid-template-columns: 70% 30%;
 }
 
-.poke-card, .history-card {
+.poke-card, .history-card, .timeline-card {
     border: 2px solid crimson;
     border-radius: 5px;
     text-decoration: none;
     color: black;
 }
 
-.poke-card {
+.poke-card, .timeline-card {
     padding: 5px;
 }
 
@@ -155,6 +155,12 @@ input[type="button"]:active {
 
 #page-controls {
     margin-bottom: 5px;
+}
+
+#timeline-container {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: auto;
 }
 
 .social_link {
