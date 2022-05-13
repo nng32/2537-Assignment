@@ -144,6 +144,8 @@ function applyFilters() {
 
     paginateMenu();
     populateResults(1);
+
+    insertIntoTimeline(targetType);
 }
 
 function saveNameToHistory() {
@@ -217,6 +219,21 @@ async function makeRequest() {
 
     $('#loading-message').remove();
     applyFilters();
+}
+
+function insertIntoTimeline(pokeType) {
+    $.ajax({
+        url: "http://localhost:5000/timeline/insert",
+        type: "PUT",
+        data: {
+            text: `Client has filtered for type ${pokeType}`,
+            hits: 1,
+            time: `1`
+        },
+        success: (response) => {
+            console.log(response);
+        }
+    })
 }
 
 function setup() {

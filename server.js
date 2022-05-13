@@ -2,10 +2,15 @@ const express = require('express');
 const app = express();
 const https = require('https');
 const mongoose = require('mongoose');
+const bodyparser = require("body-parser");
 
 app.set('view engine', 'ejs');
 
 app.use(express.static('./public'));
+
+app.use(bodyparser.urlencoded({
+    extended: true
+}));
 
 mongoose.connect("mongodb://localhost:27017/timelineevents",
     { useNewUrlParser: true, useUnifiedTopology: true });
@@ -90,7 +95,7 @@ app.get('/profile/:id', (req, res) => {
     })
 })
 
-app.get('/timeline', (req, res) => {
+app.get('/timeline/getall', (req, res) => {
     timelineModel.find({}, (err, timelineevents) => {
         if (err) {
             console.log("Error " + err);
@@ -106,12 +111,12 @@ app.put("/timeline/insert", (req, res) => {
         text: req.body.text,
         hits: req.body.hits,
         time: req.body.time
-    })
-    }, (err, data) => {
+    }), (err, data) => {
         if (err) console.log(err);
         else
             console.log(data);
         res.send("Insertion complete.")
+    }
 });
 
 app.get('/timeline/update/:id', (req, res) => {
