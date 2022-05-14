@@ -1,7 +1,7 @@
 function loadTimeline() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:5000/timeline/getall",
+        url: "https://ump45-comp-2537-a.herokuapp.com/timeline/getall",
         success: (data) => {
             console.log("YOUR DATA" + data);
 
@@ -22,7 +22,7 @@ function loadTimeline() {
 
 function clearTimeline() {
     $.ajax({
-        url: `http://localhost:5000/timeline/clear`,
+        url: `https://ump45-comp-2537-a.herokuapp.com/timeline/clear`,
         type: "GET",
         success: (response) => {
             $('#timeline-container').empty();
@@ -32,7 +32,7 @@ function clearTimeline() {
 
 function increaseHitRequest() {
     $.ajax({
-        url: `http://localhost:5000/timeline/update/${$(this).attr("id")}`,
+        url: `https://ump45-comp-2537-a.herokuapp.com/timeline/update/${$(this).attr("id")}`,
         type: "GET",
         success: (response) => {
             previousHits = parseInt($(this).prev().prev().find('.timeline-hits').html());
@@ -45,7 +45,7 @@ function increaseHitRequest() {
 
 function removeRequest() {
     $.ajax({
-        url: `http://localhost:5000/timeline/remove/${$(this).attr("id")}`,
+        url: `https://ump45-comp-2537-a.herokuapp.com/timeline/remove/${$(this).attr("id")}`,
         type: "GET",
         success: (response) => {
             console.log("Delete successful");
