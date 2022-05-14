@@ -228,7 +228,7 @@ function insertTypeIntoTimeline(pokeType) {
 
     $.ajax({
         url: "https://ump45-comp-2537-a.herokuapp.com/timeline/insert",
-        type: "PUT",
+        type: "POST",
         data: {
             text: `Client has filtered for type ${pokeType}`,
             hits: 1,
@@ -245,7 +245,7 @@ function insertNameIntoTimeline(pokeName) {
 
     $.ajax({
         url: "https://ump45-comp-2537-a.herokuapp.com/timeline/insert",
-        type: "PUT",
+        type: "POST",
         data: {
             text: `Client has filtered for name ${pokeName}`,
             hits: 1,

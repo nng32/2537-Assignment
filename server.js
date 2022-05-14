@@ -106,7 +106,7 @@ app.get('/timeline/getall', (req, res) => {
     });
 })
 
-app.put("/timeline/insert", (req, res) => {
+app.post("/timeline/insert", (req, res) => {
     timelineModel.create({
         text: req.body.text,
         hits: req.body.hits,
