@@ -12,7 +12,7 @@ app.use(bodyparser.urlencoded({
     extended: true
 }));
 
-mongoose.connect("mongodb://localhost:27017/timelineevents",
+mongoose.connect("mongodb+srv://UMP45:XZnlJVbkANg6I4vp@pokemon.etrpp.mongodb.net/timelineevents?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true });
 const timelineSchema = new mongoose.Schema({
     text: String,
