@@ -8,7 +8,7 @@ function loadTimeline() {
             for (i = 0; i < data.length; i++) {
                 $("#timeline-container").prepend(`
                     <div class="timeline-card">
-                        <p>Text: ${data[i].text}</p>
+                        <h3>${data[i].text}</h3>
                         <p>Hits: <span class="timeline-hits">${data[i].hits}</span></p>
                         <p>Time: ${data[i].time}</p>
                         <input type="button" id="${data[i]._id}" class="like-button" value="Like!" />
@@ -16,6 +16,16 @@ function loadTimeline() {
                     </div>
                 `);
             }
+        }
+    })
+}
+
+function clearTimeline() {
+    $.ajax({
+        url: `http://localhost:5000/timeline/clear`,
+        type: "GET",
+        success: (response) => {
+            $('#timeline-container').empty();
         }
     })
 }
@@ -46,6 +56,8 @@ function removeRequest() {
 
 function setup() {
     loadTimeline();
+
+    $('#clear-timeline').click(clearTimeline);
 
     $('body').on('click', '.like-button', increaseHitRequest);
     $('body').on('click', '.remove-button', removeRequest);

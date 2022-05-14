@@ -148,3 +148,12 @@ app.get('/timeline/remove/:id', (req, res) => {
         res.send("Removed");
     })
 })
+
+app.get('/timeline/clear', (req, res) => {
+    timelineModel.deleteMany({}, (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        res.send("Cleared timeline");
+    })
+})

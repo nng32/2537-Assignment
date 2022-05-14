@@ -144,7 +144,7 @@ input[type="button"]:active {
     gap: 5px;
 }
 
-#clear-history {
+#clear-history, #clear-timeline {
     margin-bottom: 5px;
     width: 100%;
 }
