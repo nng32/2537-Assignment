@@ -211,7 +211,7 @@ function clearHistory() {
 }
 
 async function makeRequest() {
-    for (i = 1; i <= 251; i++) {
+    for (i = 1; i <= 25; i++) {
         await $.ajax({
             type: 'GET',
             url: `https://pokeapi.co/api/v2/pokemon/${i}`,
