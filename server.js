@@ -3,23 +3,36 @@ const app = express();
 const https = require('https');
 const mongoose = require('mongoose');
 const bodyparser = require("body-parser");
+const session = require('express-session');
 
 app.set('view engine', 'ejs');
 
 app.use(express.static('./public'));
+app.use(session({
+    secret: "hey shikikan",
+    saveUninitialized: true,
+    resave: true,
+}))
 
 app.use(bodyparser.urlencoded({
     extended: true
 }));
 
-mongoose.connect("mongodb+srv://UMP45:XZnlJVbkANg6I4vp@pokemon.etrpp.mongodb.net/timelineevents?retryWrites=true&w=majority",
+mongoose.connect("mongodb+srv://UMP45:XZnlJVbkANg6I4vp@pokemon.etrpp.mongodb.net/pokegallery?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true });
+
 const timelineSchema = new mongoose.Schema({
     text: String,
     hits: Number,
     time: String
 });
-const timelineModel = mongoose.model("timelineevents", timelineSchema);
+const timelineModel = mongoose.model("events", timelineSchema);
+
+const userSchema = new mongoose.Schema({
+    username: String,
+    password: String,
+    cart: Array
+})
 
 app.listen(process.env.PORT || 5000, function (err) {
     if (err) console.log(err);
