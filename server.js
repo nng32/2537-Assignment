@@ -187,9 +187,9 @@ app.post('/login', (req, res) => {
         else if (formPassword == data[0].password) {
             req.session.username = formUsername;
             req.session.authenticated = true;
+            res.send("ok");
         }
         else {
-            alert("Password does not match.");
             res.send("unmatching");
         }
     })
@@ -214,7 +214,9 @@ app.post('/signup', (req, res) => {
             })
 
             req.session.username = formUsername;
-            req.session.authenticated = true;            
+            req.session.authenticated = true;     
+            
+            res.send("ok");
         }
     })
 })
