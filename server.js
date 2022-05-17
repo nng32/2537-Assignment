@@ -33,6 +33,7 @@ const userSchema = new mongoose.Schema({
     password: String,
     cart: Array
 })
+const userModel = mongoose.model("users", userSchema);
 
 app.listen(process.env.PORT || 5000, function (err) {
     if (err) console.log(err);
@@ -170,3 +171,59 @@ app.get('/timeline/clear', (req, res) => {
         res.send("Cleared timeline");
     })
 })
+
+app.post('/login', (req, res) => {
+    formUsername = req.body.username;
+    formPassword = req.body.password;
+
+    userModel.findOne({
+        username: formUsername
+    }, {
+        password: 1
+    }, (err, data) => {
+        if (data[0] == undefined) {
+            res.send("nonexistent");
+        }
+        else if (formPassword == data[0].password) {
+            req.session.username = formUsername;
+            req.session.authenticated = true;
+        }
+        else {
+            alert("Password does not match.");
+            res.send("unmatching");
+        }
+    })
+})
+
+app.post('/signup', (req, res) => {
+    formUsername = req.body.username;
+    formPassword = req.body.password;
+
+    // check if the user already exists
+    userModel.findOne({
+        username: formUsername
+    }, (err, data) => {
+        if (data[0] != undefined) {
+            res.send("already exists");
+        }
+        else {
+            // create new user if it doesn't exist
+            userModel.create({
+                username: formUsername,
+                password: formPassword
+            })
+
+            req.session.username = formUsername;
+            req.session.authenticated = true;            
+        }
+    })
+})
+
+function lockPage(req, res, next) {
+    if (!req.session.authenticated) {
+        alert("You must sign in to access this page.");
+        res.redirect('./login.html');
+    }
+
+    next();
+}
