@@ -240,8 +240,10 @@ app.post('/signup', (req, res) => {
     })
 })
 
-app.get('/profile/:name', (req, res) => {
-    res.send(`Welcome, ${req.params.name}`);
+app.get('/user/:username', (req, res) => {
+    res.render('user-profile.ejs', {
+        username: req.params.username
+    })
 })
 
 app.get('/status', (req, res) => {
