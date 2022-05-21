@@ -47,6 +47,19 @@ footer {
     text-align: center;
 }
 
+.inline-link {
+    color: crimson;
+    text-decoration: none;
+}
+
+.inline-link:hover {
+    color: darkred;
+}
+
+.inline-link:active {
+    color: red;
+}
+
 input[type="text"], input[type="button"], input[type="password"], select {
     border: 2px solid crimson;
     border-radius: 5px;

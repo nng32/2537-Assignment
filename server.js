@@ -45,7 +45,7 @@ app.get('/', function (req, res) {
 })
 
 app.get('/profile/:id', (req, res) => {
-    const url = `https://ump45-pokeapi.herokuapp.com/api/v2/pokemon/${req.params.id}`;
+    const url = `https://pokeapi.co/api/v2/pokemon/${req.params.id}`;
 
     https.get(url, (http_res) => {
         data = '';
