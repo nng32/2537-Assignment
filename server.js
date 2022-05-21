@@ -252,7 +252,6 @@ app.get('/status', (req, res) => {
 
 function lockPage(req, res, next) {
     if (!req.session.authenticated) {
-        alert("You must sign in to access this page.");
         res.redirect('./login.html');
     }
 

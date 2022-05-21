@@ -1,23 +1,23 @@
 function processLogin(data) {
     switch (data) {
         case "nonexistent":
-            alert("Could not find user.");
+            $('#alert').html("Could not find user. Please ensure your username is correct.");
             break;
         case "unmatching":
-            alert("Password does not match.");
+            $('#alert').html("Password does not match.");
             break;
         case "ok":
-            alert("Login complete.");
+            $('#alert').html("Login complete.");
     }
 }
 
 function processSignup(data) {
     switch (data) {
         case "already exists":
-            alert("This username has been already taken.");
+            $('#alert').html("This username has been already taken.");
             break;
         case "ok":
-            alert("Signup complete.");
+            $('#alert').html("Signup complete.");
     }
 }
 
