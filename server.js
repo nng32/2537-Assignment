@@ -221,6 +221,10 @@ app.post('/signup', (req, res) => {
     })
 })
 
+app.get('/profile/:name'), (req, res) => {
+    res.send(`Welcome, ${req.params.name}`);
+}
+
 function lockPage(req, res, next) {
     if (!req.session.authenticated) {
         alert("You must sign in to access this page.");
