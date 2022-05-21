@@ -23,6 +23,12 @@ function processSignup(data) {
 
 function loginRequest() {
     console.log(`Attempting login as ${$('#username').val()}`);
+    
+    if (!$('#username').val() || !$('#password').val()) {
+        $('#alert').html('All fields are required.');
+        return;
+    }
+    
     $.ajax({
         url: 'http://localhost:5000/login',
         type: 'POST',
@@ -36,6 +42,12 @@ function loginRequest() {
 
 function signupRequest() {
     console.log(`Attempting signup as ${$('#username').val()}`);
+
+    if (!$('#username').val() || !$('#password').val()) {
+        $('#alert').html('All fields are required.');
+        return;
+    }
+
     $.ajax({
         url: 'http://localhost:5000/signup',
         type: 'POST',
