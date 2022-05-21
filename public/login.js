@@ -22,11 +22,29 @@ function processSignup(data) {
 }
 
 function loginRequest() {
-
+    console.log(`Attempting login as ${$('#username').val()}`);
+    $.ajax({
+        url: 'http://localhost:5000/login',
+        type: 'POST',
+        data: {
+            username: $('#username').val(),
+            password: $('#password').val()
+        },
+        success: processLogin
+    })
 }
 
 function signupRequest() {
-
+    console.log(`Attempting signup as ${$('#username').val()}`);
+    $.ajax({
+        url: 'http://localhost:5000/signup',
+        type: 'POST',
+        data: {
+            username: $('#username').val(),
+            password: $('#password').val()
+        },
+        success: processSignup
+    })
 }
 
 function setup() {

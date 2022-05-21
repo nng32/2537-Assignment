@@ -182,13 +182,15 @@ app.post('/login', (req, res) => {
     }, {
         password: 1
     }, (err, data) => {
-        if (data[0] == undefined) {
+        console.log(data);
+
+        if (data == null) {
             // user does not exist in database
             res.send("nonexistent");
         }
         else {
             // compare the password input with the hashed password from db
-            bcrypt.compare(formPassword, data[0], (err, result) => {
+            bcrypt.compare(formPassword, data.password, (err, result) => {
                 if (result) {
                     req.session.username = formUsername;
                     req.session.authenticated = true;
@@ -197,6 +199,7 @@ app.post('/login', (req, res) => {
                 else {
                     req.session.username = null;
                     req.session.authenticated = false;
+                    res.send("unmatching");
                 }
             })
         }
@@ -207,7 +210,7 @@ app.post('/signup', (req, res) => {
     formUsername = req.body.username;
     formPassword = req.body.password;
 
-    const saltRounds = 69;
+    const saltRounds = 8;
     bcrypt.hash(formPassword, saltRounds, (err, hash) => {
         if (err) {
             console.log(err);
@@ -217,7 +220,7 @@ app.post('/signup', (req, res) => {
             userModel.findOne({
                 username: formUsername
             }, (err, data) => {
-                if (data[0] != undefined) {
+                if (data != null) {
                     res.send("already exists");
                 }
                 else {
@@ -237,9 +240,13 @@ app.post('/signup', (req, res) => {
     })
 })
 
-app.get('/profile/:name'), (req, res) => {
+app.get('/profile/:name', (req, res) => {
     res.send(`Welcome, ${req.params.name}`);
-}
+})
+
+app.get('/status', (req, res) => {
+    res.send(req.session.username);
+})
 
 function lockPage(req, res, next) {
     if (!req.session.authenticated) {
