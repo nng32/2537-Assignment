@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const https = require('https');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const bodyparser = require("body-parser");
 const session = require('express-session');
 
@@ -31,7 +32,7 @@ const timelineModel = mongoose.model("events", timelineSchema);
 const userSchema = new mongoose.Schema({
     username: String,
     password: String,
-    cart: Array
+    cart: Object
 })
 const userModel = mongoose.model("users", userSchema);
 
@@ -182,15 +183,22 @@ app.post('/login', (req, res) => {
         password: 1
     }, (err, data) => {
         if (data[0] == undefined) {
+            // user does not exist in database
             res.send("nonexistent");
         }
-        else if (formPassword == data[0].password) {
-            req.session.username = formUsername;
-            req.session.authenticated = true;
-            res.send("ok");
-        }
         else {
-            res.send("unmatching");
+            // compare the password input with the hashed password from db
+            bcrypt.compare(formPassword, data[0], (err, result) => {
+                if (result) {
+                    req.session.username = formUsername;
+                    req.session.authenticated = true;
+                    res.send("ok");
+                }
+                else {
+                    req.session.username = null;
+                    req.session.authenticated = false;
+                }
+            })
         }
     })
 })
@@ -199,24 +207,32 @@ app.post('/signup', (req, res) => {
     formUsername = req.body.username;
     formPassword = req.body.password;
 
-    // check if the user already exists
-    userModel.findOne({
-        username: formUsername
-    }, (err, data) => {
-        if (data[0] != undefined) {
-            res.send("already exists");
+    const saltRounds = 69;
+    bcrypt.hash(formPassword, saltRounds, (err, hash) => {
+        if (err) {
+            console.log(err);
         }
         else {
-            // create new user if it doesn't exist
-            userModel.create({
-                username: formUsername,
-                password: formPassword
-            })
+            // check if the user already exists
+            userModel.findOne({
+                username: formUsername
+            }, (err, data) => {
+                if (data[0] != undefined) {
+                    res.send("already exists");
+                }
+                else {
+                    // create new user if it doesn't exist
+                    userModel.create({
+                        username: formUsername,
+                        password: hash
+                    })
 
-            req.session.username = formUsername;
-            req.session.authenticated = true;     
-            
-            res.send("ok");
+                    req.session.username = formUsername;
+                    req.session.authenticated = true;     
+                    
+                    res.send("ok");
+                }
+            })            
         }
     })
 })
