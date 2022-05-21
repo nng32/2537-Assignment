@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=BIZ+UDPGothic&display=swap');
+
 * {
     box-sizing: border-box;
+    font-family: 'BIZ UDPGothic', sans-serif;
 }
 
 .homelink {
@@ -48,6 +51,7 @@ input[type="text"], input[type="button"], input[type="password"], select {
     border: 2px solid crimson;
     border-radius: 5px;
     background-color: white;
+    padding: 2px;
 }
 
 input[type="button"]:hover {
