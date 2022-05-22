@@ -240,6 +240,12 @@ app.post('/signup', (req, res) => {
     })
 })
 
+app.get('/logout', (req, res) => {
+    req.session.username = null;
+    req.session.authenticated = false;
+    res.redirect('/');
+})
+
 app.get('/user/:username', (req, res) => {
     res.render('user-profile.ejs', {
         username: req.params.username
