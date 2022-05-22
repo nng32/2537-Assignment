@@ -46,13 +46,7 @@ app.get('/', function (req, res) {
 })
 
 app.get('/profile/:id', (req, res) => {
-    pokemonStats = getPokemonData(req.params.id);
-
-    res.render('profile.ejs', pokemonStats);
-})
-
-function getPokemonData(id) {
-    const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+    const url = `https://pokeapi.co/api/v2/pokemon/${req.params.id}`;
 
     https.get(url, (http_res) => {
         data = '';
@@ -100,7 +94,7 @@ function getPokemonData(id) {
                 return object.base_stat;
             });
 
-            return {
+            res.render('profile.ejs', {
                 'id': req.params.id,
                 'name': data.name,
                 'img_path': data.sprites.other['official-artwork']['front_default'],
@@ -112,10 +106,10 @@ function getPokemonData(id) {
                 'spatk': spatk[0],
                 'spdef': spdef[0],
                 'spd': spd[0]
-            }
+            })
         })
     })
-}
+})
 
 app.get('/timeline/getall', (req, res) => {
     timelineModel.find({}, (err, timelineevents) => {

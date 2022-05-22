@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../styles.css" />
     <script src="../header-mod.js"></script>
+    <script src="../profile.js"></script>
 </head>
 <body>
     <header>
@@ -44,15 +45,15 @@
                 <hr />
                 <div class="cart-card">
                     <p>Subtotal</p>
-                    <p>$1.40</p>
+                    <p id="subtotal">$1.40</p>
                 </div>
                 <div class="cart-card">
                     <p>Tax 12%</p>
-                    <p>$1.40</p>
+                    <p id="tax">$1.40</p>
                 </div>
                 <div class="cart-card large-text">
                     <p>Total</p>
-                    <p>$1.40</p>
+                    <p id="total">$1.40</p>
                 </div>
                 <input id="checkout" type="button" value="Checkout" />
             </div>
