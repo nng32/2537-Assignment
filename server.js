@@ -395,6 +395,21 @@ app.get('/getHistory', (req, res) => {
     })
 })
 
+app.get('/getHistory/:id', (req, res) => {
+    userModel.findOne({
+        username: req.session.username
+    }, {
+        history: 1
+    }, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result.history[req.params.id]);
+        }
+    })
+})
+
 function lockPage(req, res, next) {
     if (!req.session.authenticated) {
         res.redirect('./login.html');
