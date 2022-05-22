@@ -1,5 +1,5 @@
 function processLogin(data) {
-    switch (data) {
+    switch (data.status) {
         case "nonexistent":
             $('#alert').html("Could not find user. Please ensure your username is correct.");
             break;
@@ -8,16 +8,18 @@ function processLogin(data) {
             break;
         case "ok":
             $('#alert').html("Login complete.");
+            location.href = `./user/${data.username}`;
     }
 }
 
 function processSignup(data) {
-    switch (data) {
+    switch (data.status) {
         case "already exists":
             $('#alert').html("This username has been already taken.");
             break;
         case "ok":
             $('#alert').html("Signup complete.");
+            location.href = `./user/${data.username}`;
     }
 }
 

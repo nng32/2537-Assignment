@@ -195,7 +195,10 @@ app.post('/login', (req, res) => {
 
         if (data == null) {
             // user does not exist in database
-            res.send("nonexistent");
+            res.send({
+                status: "nonexistent",
+                username: null
+            });
         }
         else {
             // compare the password input with the hashed password from db
@@ -203,12 +206,18 @@ app.post('/login', (req, res) => {
                 if (result) {
                     req.session.username = formUsername;
                     req.session.authenticated = true;
-                    res.send("ok");
+                    res.send({
+                        status: "ok",
+                        username: req.session.username
+                    });
                 }
                 else {
                     req.session.username = null;
                     req.session.authenticated = false;
-                    res.send("unmatching");
+                    res.send({
+                        status: "unmatching",
+                        username: req.session.username
+                    });
                 }
             })
         }
@@ -230,7 +239,10 @@ app.post('/signup', (req, res) => {
                 username: formUsername
             }, (err, data) => {
                 if (data != null) {
-                    res.send("already exists");
+                    res.send({
+                        status: "already exists",
+                        username: null
+                    });
                 }
                 else {
                     // create new user if it doesn't exist
@@ -242,7 +254,10 @@ app.post('/signup', (req, res) => {
                     req.session.username = formUsername;
                     req.session.authenticated = true;     
                     
-                    res.send("ok");
+                    res.send({
+                        status: "ok",
+                        username: req.session.username
+                    });
                 }
             })            
         }
@@ -288,6 +303,44 @@ app.get('/addToCart/:id/:qty', (req, res) => {
             }
         })
     }
+})
+
+app.get('/getCart', (req, res) => {
+    if (req.session.username == null || req.session.username == '') {
+        res.send('logged out');
+    };
+
+    userModel.findOne({
+        username: req.session.username
+    }, {
+        cart: 1
+    }, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    })
+})
+
+app.get('/checkout', (req, res) => {
+    if (req.session.username == null || req.session.username == '') {
+        res.send('logged out');
+    };
+
+    userModel.updateOne({
+        username: req.session.username
+    }, {
+        cart: []
+    }, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send('ok');
+        }
+    })
 })
 
 function lockPage(req, res, next) {

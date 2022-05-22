@@ -11,7 +11,7 @@ function processResponse(data) {
 
 function addToCart() {
     currentURL = location.href;
-    pokeID = currentURL.slice(currentURL.lastIndexOf('/') + 1);
+    pokeID = parseInt(currentURL.slice(currentURL.lastIndexOf('/') + 1));
     quantity = 1;
 
     $.ajax({
@@ -21,8 +21,21 @@ function addToCart() {
     })
 }
 
+function processCheckout(data) {
+
+}
+
+function checkout() {
+    $.ajax({
+        url: 'http://localhost:5000/checkout',
+        type: 'GET',
+        success: processCheckout
+    })
+}
+
 function setup() {
     $('#purchase').click(addToCart);
+    $('#checkout').click(checkout);
 }
 
 $(document).ready(setup);

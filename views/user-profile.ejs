@@ -23,13 +23,45 @@
     </nav>
     <article>
         <h2 id="profile-name"><%= username %></h2>
-        <h3>Cart</h3>
-        <div id="cart-container">
-            <!-- Current orders go here -->
-        </div>
-        <h3>History</h3>
-        <div id="receipt-container">
-            <!-- Previous purchases go here -->
+        <div id="profile-pane">
+            <div>
+                <h3>Cart</h3>
+                <div id="cart-container">
+                    <!-- Current orders go here -->
+                    <div class="cart-card">
+                        <p>Paimon x3</p>
+                        <p>$0.69</p>
+                    </div>
+                    <div class="cart-card">
+                        <p>Type 90 x1</p>
+                        <p>$4.20</p>
+                    </div>
+                    <div class="cart-card">
+                        <p>Type 74 x4</p>
+                        <p>$1.40</p>
+                    </div>
+                </div>
+                <hr />
+                <div class="cart-card">
+                    <p>Subtotal</p>
+                    <p>$1.40</p>
+                </div>
+                <div class="cart-card">
+                    <p>Tax 12%</p>
+                    <p>$1.40</p>
+                </div>
+                <div class="cart-card large-text">
+                    <p>Total</p>
+                    <p>$1.40</p>
+                </div>
+                <input id="checkout" type="button" value="Checkout" />
+            </div>
+            <div>
+                <h3>History</h3>
+                <div id="receipt-container">
+                    <!-- Previous purchases go here -->
+                </div>
+            </div>
         </div>
     </article>
     <footer>

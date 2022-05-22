@@ -111,9 +111,13 @@ input[type="button"]:active {
     grid-template-rows: auto auto auto;
 }
 
-.history-card {
+.history-card, .cart-card {
     display: grid;
     grid-template-columns: 70% 30%;
+}
+
+.cart-card > p {
+    margin: 2px;
 }
 
 .poke-card, .history-card, .timeline-card {
@@ -153,7 +157,7 @@ input[type="button"]:active {
     margin: auto;
 }
 
-#results-history {
+#results-history, #profile-pane {
     display: grid;
     grid-template-columns: 70% 30%;
     gap: 10px;
@@ -197,6 +201,10 @@ input[type="button"]:active {
 
 .red-text {
     color: red;
+}
+
+.large-text {
+    font-size: large;
 }
 
 @media screen and (max-width: 500px) {
