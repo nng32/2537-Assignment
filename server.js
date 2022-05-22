@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const bodyparser = require("body-parser");
 const session = require('express-session');
+const req = require('express/lib/request');
+const res = require('express/lib/response');
 
 app.set('view engine', 'ejs');
 
@@ -377,6 +379,21 @@ function emptyCart(req) {
         }
     })
 }
+
+app.get('/getHistory', (req, res) => {
+    userModel.findOne({
+        username: req.session.username
+    }, {
+        history: 1
+    }, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    })
+})
 
 function lockPage(req, res, next) {
     if (!req.session.authenticated) {

@@ -52,6 +52,7 @@ function populateCart(data) {
         return;
     }
     else {
+        total = 0;
         let subtotal = 0; // subtotal in cents
 
         data.cart.forEach(item => {
@@ -86,8 +87,29 @@ function requestCart() {
     })
 }
 
+function populateHistory(data) {
+    console.log(data);
+
+    data.history.forEach(purchase => {
+        $('#receipt-container').prepend(`
+        <div class="receipt-card">
+            <h3>${purchase._id}</h3>
+        </div>
+        `)
+    })
+}
+
+function requestHistory() {
+    $.ajax({
+        url: 'http://localhost:5000/getHistory',
+        type: 'GET',
+        success: populateHistory
+    })
+}
+
 function setup() {
     requestCart();
+    requestHistory();
     $('#purchase').click(addToCart);
     $('#checkout').click(checkout);
 }
