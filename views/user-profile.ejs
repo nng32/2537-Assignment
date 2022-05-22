@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>#<%= username %></title>
+    <title><%= username %></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../styles.css" />
     <script src="../header-mod.js"></script>
@@ -23,8 +23,14 @@
     </nav>
     <article>
         <h2 id="profile-name"><%= username %></h2>
-        
-        
+        <h3>Cart</h3>
+        <div id="cart-container">
+            <!-- Current orders go here -->
+        </div>
+        <h3>History</h3>
+        <div id="receipt-container">
+            <!-- Previous purchases go here -->
+        </div>
     </article>
     <footer>
         <p>

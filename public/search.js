@@ -230,7 +230,7 @@ function insertTypeIntoTimeline(pokeType) {
         url: "http://localhost:5000/timeline/insert",
         type: "POST",
         data: {
-            text: `Client has filtered for type ${pokeType}`,
+            text: `has filtered for type ${pokeType}`,
             hits: 1,
             time: timestamp.toGMTString()
         },
@@ -247,7 +247,7 @@ function insertNameIntoTimeline(pokeName) {
         url: "http://localhost:5000/timeline/insert",
         type: "POST",
         data: {
-            text: `Client has filtered for name ${pokeName}`,
+            text: `has filtered for name ${pokeName}`,
             hits: 1,
             time: timestamp.toGMTString()
         },

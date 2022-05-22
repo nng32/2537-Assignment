@@ -23,6 +23,7 @@ mongoose.connect("mongodb+srv://UMP45:XZnlJVbkANg6I4vp@pokemon.etrpp.mongodb.net
     { useNewUrlParser: true, useUnifiedTopology: true });
 
 const timelineSchema = new mongoose.Schema({
+    user: String,
     text: String,
     hits: Number,
     time: String
@@ -122,8 +123,16 @@ app.get('/timeline/getall', (req, res) => {
 })
 
 app.post("/timeline/insert", (req, res) => {
+    if (req.session.username == null || req.session.username == '') {
+        eventUser = 'Guest';
+    }
+    else {
+        eventUser = req.session.username;
+    }
+
     timelineModel.create({
-        text: req.body.text,
+        user: eventUser,
+        text: `${eventUser} ${req.body.text}`,
         hits: req.body.hits,
         time: req.body.time
     }), (err, data) => {
