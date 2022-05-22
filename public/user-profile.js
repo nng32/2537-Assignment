@@ -60,6 +60,10 @@ async function populateCart(data) {
 }
 
 function requestCart() {
+    $('#receipt-header').html('Cart');
+    $('#checkout').show();
+    $('#to-cart').hide();
+
     $.ajax({
         url: 'http://localhost:5000/getCart',
         type: 'GET',
@@ -113,7 +117,12 @@ function requestHistory() {
 function showReceipt() {
     console.log('Showing previous order');
 
+    $('#checkout').hide();
+    $('#to-cart').show();
+
     receiptIndex = $(this).attr('id');
+
+    $('#receipt-header').html(`Order #${receiptIndex}`);
 
     $.ajax({
         url: `http://localhost:5000/getHistory/${receiptIndex}`,
@@ -126,6 +135,7 @@ function setup() {
     requestCart();
     requestHistory();
     $('#checkout').click(checkout);
+    $('#to-cart').click(requestCart);
 
     $('body').on('click', '.receipt-card', showReceipt);
 }

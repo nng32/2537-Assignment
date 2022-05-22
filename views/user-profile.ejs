@@ -26,7 +26,7 @@
         <h2 id="profile-name"><%= username %></h2>
         <div id="profile-pane">
             <div>
-                <h3>Cart</h3>
+                <h3 id="receipt-header">Cart</h3>
                 <div id="cart-container">
                     <!-- Current orders go here -->
                 </div>
@@ -43,7 +43,8 @@
                     <p>Total</p>
                     <p id="total"></p>
                 </div>
-                <input id="checkout" type="button" value="Checkout" />
+                <input id="checkout" class="margin-top" type="button" value="Checkout" />
+                <input id="to-cart" class="margin-top" type="button" value="Back to cart" />
             </div>
             <div>
                 <h3>History</h3>

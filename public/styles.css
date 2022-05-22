@@ -207,6 +207,10 @@ input[type="button"]:active {
     font-size: large;
 }
 
+.margin-top {
+    margin-top: 5px;
+}
+
 @media screen and (max-width: 500px) {
     body {
         width: 90%;
