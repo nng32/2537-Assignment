@@ -1,4 +1,5 @@
-var total = 0;
+var history = {};
+var fuck;
 
 function processResponse(data) {
     switch (data) {
@@ -45,37 +46,43 @@ function checkout() {
     })
 }
 
-function populateCart(data) {
+async function populateCart(data) {
     if (data == 'logged out') {
         alert('You must be signed in to view your profile.');
         location.href = '../login.html';
         return;
     }
     else {
-        total = 0;
+        let total = 0;
         let subtotal = 0; // subtotal in cents
 
-        data.cart.forEach(item => {
-            $.ajax({
-                url: `https://pokeapi.co/api/v2/pokemon/${item.id}`,
+        console.log(`Your cart has ${data.cart.length} items`);
+
+        for (let i = 0; i < data.cart.length; i++) {
+            await $.ajax({
+                url: `https://pokeapi.co/api/v2/pokemon/${data.cart[i].id}`,
                 type: 'GET',
                 success: itemData => {
+                    console.log(data);
+
+                    console.log(i);
+
                     $('#cart-container').append(`
                         <div class="cart-card">
-                            <p>${itemData.name} x${item.qty}</p>
-                            <p>$${itemData.weight * item.qty / 100}</p>
+                            <p>${itemData.name} x${data.cart[i].qty}</p>
+                            <p>$${itemData.weight * data.cart[i].qty / 100}</p>
                         </div>
                     `)
 
-                    subtotal += itemData.weight * item.qty;
+                    subtotal += itemData.weight * data.cart[i].qty;
                     total += Math.round(subtotal * 1.12);
-
-                    $('#subtotal').html(`$${subtotal / 100}`);
-                    $('#tax').html(`$${Math.round(subtotal * 0.12) / 100}`);
-                    $('#total').html(`$${Math.round(subtotal * 1.12) / 100}`);
                 }
             })
-        })
+        }
+
+        $('#subtotal').html(`$${subtotal / 100}`);
+        $('#tax').html(`$${Math.round(subtotal * 0.12) / 100}`);
+        $('#total').html(`$${Math.round(subtotal * 1.12) / 100}`);
     }
 }
 
@@ -87,16 +94,40 @@ function requestCart() {
     })
 }
 
+async function getTotalPrice(cart) {
+    let subtotal = 0;
+    let total = 0;
+
+    for (let i = 0; i < cart.length; i++) {
+        await $.ajax({
+            url: `https://pokeapi.co/api/v2/pokemon/${cart[i].id}`,
+            type: 'GET',
+            success: itemData => {
+                subtotal += itemData.weight * cart[i].qty;
+                total += Math.round(subtotal * 1.12);
+            }
+        })
+    }
+
+    return {
+        'subtotal': subtotal,
+        'tax': Math.round(subtotal * 0.12),
+        'total': total
+    }
+}
+
 function populateHistory(data) {
     console.log(data);
 
-    data.history.forEach(purchase => {
+    history = data;
+
+    for (let i = 0; i < data.history.length; i++) {
         $('#receipt-container').prepend(`
-        <div class="receipt-card">
-            <h3>${purchase._id}</h3>
+        <div class="receipt-card" id="${i}">
+            <h3>#${i}</h3>
         </div>
         `)
-    })
+    }
 }
 
 function requestHistory() {
