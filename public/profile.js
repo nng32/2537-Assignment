@@ -1,5 +1,3 @@
-var history = {};
-
 function processResponse(data) {
     switch (data) {
         case 'logged out':
@@ -112,15 +110,16 @@ async function getTotalPrice(cart) {
     }
 }
 
-function populateHistory(data) {
+async function populateHistory(data) {
     console.log(data);
 
-    history = data;
-
     for (let i = 0; i < data.history.length; i++) {
+        totals = await getTotalPrice(data.history[i].cart);
+
         $('#receipt-container').prepend(`
         <div class="receipt-card" id="${i}">
             <h3>#${i}</h3>
+            <p>Total: $${totals.total / 100}</p>
         </div>
         `)
     }

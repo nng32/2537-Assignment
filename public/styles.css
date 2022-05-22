@@ -120,14 +120,14 @@ input[type="button"]:active {
     margin: 2px;
 }
 
-.poke-card, .history-card, .timeline-card {
+.poke-card, .history-card, .timeline-card, .receipt-card {
     border: 2px solid crimson;
     border-radius: 5px;
     text-decoration: none;
     color: black;
 }
 
-.poke-card, .timeline-card {
+.poke-card, .timeline-card, .receipt-card {
     padding: 5px;
 }
 
@@ -136,12 +136,12 @@ input[type="button"]:active {
     padding: 5px;
 }
 
-.poke-card:hover, .history-card > div:hover {
+.poke-card:hover, .history-card > div:hover, .receipt-card:hover {
     background-color: lightcoral;
     cursor: pointer;
 }
 
-.poke-card:active, .history-card > div:active {
+.poke-card:active, .history-card > div:active, .receipt-card:active {
     background-color: crimson;
     color: white;
 }
@@ -169,7 +169,7 @@ input[type="button"]:active {
     gap: 5px;
 }
 
-#history {
+#history, #receipt-container {
     display: grid;
     grid-template-columns: auto;
     gap: 5px;
