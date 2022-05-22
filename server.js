@@ -273,14 +273,20 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 })
 
-app.get('/user/:username', (req, res) => {
+app.get('/user/:username', lockPage, (req, res) => {
     res.render('user-profile.ejs', {
         username: req.params.username
     })
 })
 
 app.get('/status', (req, res) => {
-    res.send(req.session.username);
+    if (req.session.authenticated) {
+        res.send(req.session.username);
+    }
+    else {
+        res.send(null);
+    }
+
 })
 
 app.get('/addToCart/:id/:qty', (req, res) => {
