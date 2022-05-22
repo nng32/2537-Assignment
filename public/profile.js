@@ -12,13 +12,11 @@ function processResponse(data) {
 function addToCart() {
     currentURL = location.href;
     pokeID = currentURL.slice(currentURL.lastIndexOf('/') + 1);
+    quantity = 1;
 
     $.ajax({
-        url: 'http://localhost:5000/addToCart',
-        type: 'POST',
-        data: {
-            id: pokeID
-        },
+        url: `http://localhost:5000/addToCart/${pokeID}/${quantity}`,
+        type: 'GET',
         success: processResponse
     })
 }

@@ -33,7 +33,7 @@ const timelineModel = mongoose.model("events", timelineSchema);
 const userSchema = new mongoose.Schema({
     username: String,
     password: String,
-    cart: Object
+    cart: Array
 })
 const userModel = mongoose.model("users", userSchema);
 
@@ -263,6 +263,31 @@ app.get('/user/:username', (req, res) => {
 
 app.get('/status', (req, res) => {
     res.send(req.session.username);
+})
+
+app.get('/addToCart/:id/:qty', (req, res) => {
+    if (req.session.username == null || req.session.username == '') {
+        res.send('logged out');
+    }
+    else {
+        userModel.updateOne({
+            username: req.session.username
+        }, {
+            $push: {
+                cart: {
+                    id: req.params.id,
+                    qty: req.params.qty
+                }
+            }
+        }, (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send('ok');                
+            }
+        })
+    }
 })
 
 function lockPage(req, res, next) {
