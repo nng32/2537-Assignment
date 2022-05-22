@@ -46,7 +46,13 @@ app.get('/', function (req, res) {
 })
 
 app.get('/profile/:id', (req, res) => {
-    const url = `https://pokeapi.co/api/v2/pokemon/${req.params.id}`;
+    pokemonStats = getPokemonData(req.params.id);
+
+    res.render('profile.ejs', pokemonStats);
+})
+
+function getPokemonData(id) {
+    const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
 
     https.get(url, (http_res) => {
         data = '';
@@ -94,7 +100,7 @@ app.get('/profile/:id', (req, res) => {
                 return object.base_stat;
             });
 
-            res.render('profile.ejs', {
+            return {
                 'id': req.params.id,
                 'name': data.name,
                 'img_path': data.sprites.other['official-artwork']['front_default'],
@@ -106,10 +112,10 @@ app.get('/profile/:id', (req, res) => {
                 'spatk': spatk[0],
                 'spdef': spdef[0],
                 'spd': spd[0]
-            })
+            }
         })
     })
-})
+}
 
 app.get('/timeline/getall', (req, res) => {
     timelineModel.find({}, (err, timelineevents) => {
@@ -308,20 +314,22 @@ app.get('/addToCart/:id/:qty', (req, res) => {
 app.get('/getCart', (req, res) => {
     if (req.session.username == null || req.session.username == '') {
         res.send('logged out');
-    };
-
-    userModel.findOne({
-        username: req.session.username
-    }, {
-        cart: 1
-    }, (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.send(result);
-        }
-    })
+    }
+    else {
+        userModel.findOne({
+            username: req.session.username
+        }, {
+            cart: 1
+        }, (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log('Found cart!');
+                res.send(result);
+            }
+        })
+    }
 })
 
 app.get('/checkout', (req, res) => {
