@@ -14,7 +14,7 @@ function processResponse(data) {
 function addToCart() {
     currentURL = location.href;
     pokeID = parseInt(currentURL.slice(currentURL.lastIndexOf('/') + 1));
-    quantity = 1;
+    quantity = parseInt($('#quantity').val());
 
     $.ajax({
         url: `http://localhost:5000/addToCart/${pokeID}/${quantity}`,
