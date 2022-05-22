@@ -33,7 +33,8 @@ const timelineModel = mongoose.model("events", timelineSchema);
 const userSchema = new mongoose.Schema({
     username: String,
     password: String,
-    cart: Array
+    cart: Array,
+    history: Array
 })
 const userModel = mongoose.model("users", userSchema);
 
@@ -326,11 +327,46 @@ app.get('/getCart', (req, res) => {
     }
 })
 
-app.get('/checkout', (req, res) => {
+app.post('/checkout', (req, res) => {
     if (req.session.username == null || req.session.username == '') {
         res.send('logged out');
     };
 
+    // store cart to history
+    userModel.findOne({
+        username: req.session.username
+    }, {
+        cart: 1
+    }, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            pushToHistory(req, result);
+        }
+    })
+
+    res.send('ok');
+})
+
+function pushToHistory(req, cart) {
+    userModel.updateOne({
+        username: req.session.username
+    }, {
+        $push: {
+            history: cart
+        }
+    }, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            emptyCart(req);
+        }
+    })
+}
+
+function emptyCart(req) {
     userModel.updateOne({
         username: req.session.username
     }, {
@@ -339,11 +375,8 @@ app.get('/checkout', (req, res) => {
         if (err) {
             console.log(err);
         }
-        else {
-            res.send('ok');
-        }
     })
-})
+}
 
 function lockPage(req, res, next) {
     if (!req.session.authenticated) {
