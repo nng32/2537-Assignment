@@ -1,5 +1,4 @@
 var history = {};
-var fuck;
 
 function processResponse(data) {
     switch (data) {
@@ -38,10 +37,7 @@ function processCheckout(data) {
 function checkout() {
     $.ajax({
         url: 'http://localhost:5000/checkout',
-        type: 'POST',
-        data: {
-            'total': total
-        },
+        type: 'GET',
         success: processCheckout
     })
 }

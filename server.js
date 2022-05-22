@@ -329,7 +329,7 @@ app.get('/getCart', (req, res) => {
     }
 })
 
-app.post('/checkout', (req, res) => {
+app.get('/checkout', (req, res) => {
     if (req.session.username == null || req.session.username == '') {
         res.send('logged out');
     };
