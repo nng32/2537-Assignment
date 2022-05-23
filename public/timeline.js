@@ -3,8 +3,6 @@ function loadTimeline() {
         type: "GET",
         url: "http://localhost:5000/timeline/getall",
         success: (data) => {
-            console.log("YOUR DATA" + data);
-
             for (i = 0; i < data.length; i++) {
                 $("#timeline-container").prepend(`
                     <div class="timeline-card">
@@ -54,7 +52,26 @@ function removeRequest() {
     })
 }
 
+function processStatus(data) {
+    console.log(data);
+
+    if (data == null || data == undefined || data == "") {
+        $('#message').html('You must <a class="inline-link" href="./login.html">log in</a> to view your timeline!');
+    }
+}
+
+function requestStatus() {
+    console.log("Getting status");
+
+    $.ajax({
+        url: 'http://localhost:5000/status',
+        type: 'GET',
+        success: processStatus
+    })
+}
+
 function setup() {
+    requestStatus();
     loadTimeline();
 
     $('#clear-timeline').click(clearTimeline);
