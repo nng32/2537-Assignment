@@ -273,7 +273,7 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 })
 
-app.get('/user/:username', lockPage, (req, res) => {
+app.get('/user/:username', (req, res) => {
     res.render('user-profile.ejs', {
         username: req.params.username
     })
@@ -349,12 +349,14 @@ app.get('/checkout', (req, res) => {
         if (err) {
             console.log(err);
         }
+        else if (result.cart.length <= 0) {
+            res.send('empty');
+        }
         else {
             pushToHistory(req, result);
+            res.send('ok');
         }
     })
-
-    res.send('ok');
 })
 
 function pushToHistory(req, cart) {

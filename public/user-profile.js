@@ -1,10 +1,14 @@
 function processCheckout(data) {
     switch (data) {
         case 'logged out':
-            alert('You are logged out');
+            $('#alert').html('You must login to check out your cart.');
+            break;
+        case 'empty':
+            $('#alert').html('You must have at least one item in your cart.');
             break;
         case 'ok':
-            alert('Checkout complete');
+            $('#alert').html('Checkout complete.');
+            location.reload();
             break;
     }
 }
