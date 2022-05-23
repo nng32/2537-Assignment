@@ -61,7 +61,27 @@ function signupRequest() {
     })
 }
 
+function processStatus(data) {
+    console.log(`Logged in as ${data}`);
+
+    if (data != null && data != undefined && data != "") {
+        console.log(`Logged in as ${data}`);
+        location.href = `./user/${data}`;
+    }
+}
+
+function requestStatus() {
+    console.log("Getting status");
+
+    $.ajax({
+        url: 'http://localhost:5000/status',
+        type: 'GET',
+        success: processStatus
+    })
+}
+
 function setup() {
+    requestStatus();
     $('#login').click(loginRequest);
     $('#signup').click(signupRequest);
 }

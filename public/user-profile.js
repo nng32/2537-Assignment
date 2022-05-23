@@ -21,7 +21,7 @@ function processCheckout(data) {
                 },
                 success: response => { }
             })
-            
+
             location.reload();
             break;
     }
@@ -37,7 +37,6 @@ function checkout() {
 
 async function populateCart(data) {
     if (data == 'logged out') {
-        alert('You must be signed in to view your profile.');
         location.href = '../login.html';
         return;
     }
