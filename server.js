@@ -418,6 +418,11 @@ app.get('/getHistory/:id', (req, res) => {
     })
 })
 
+app.get('/clearCart', (req, res) => {
+    emptyCart(req);
+    res.send('ok');
+})
+
 function lockPage(req, res, next) {
     if (!req.session.authenticated) {
         res.redirect('./login.html');

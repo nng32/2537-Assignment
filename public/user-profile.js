@@ -67,6 +67,7 @@ function requestCart() {
     $('#receipt-header').html('Cart');
     $('#checkout').show();
     $('#to-cart').hide();
+    $('#clear-cart').show();
 
     $.ajax({
         url: 'http://localhost:5000/getCart',
@@ -123,6 +124,7 @@ function showReceipt() {
 
     $('#checkout').hide();
     $('#to-cart').show();
+    $('#clear-cart').hide();
 
     receiptIndex = $(this).attr('id');
 
@@ -135,11 +137,35 @@ function showReceipt() {
     })
 }
 
+function processClearCart(data) {
+    switch (data) {
+        case 'empty':
+            $('#alert').html('Your cart is already empty!');
+            break;
+        case 'ok':
+            $('#alert').html('Successfully cleared.');
+            $('#cart-container').empty();
+            $('#subtotal').html('$0');
+            $('#tax').html('$0');
+            $('#total').html('$0');
+            break;
+    }
+}
+
+function clearCart() {
+    $.ajax({
+        url: 'http://localhost:5000/clearCart',
+        type: 'GET',
+        success: processClearCart
+    })
+}
+
 function setup() {
     requestCart();
     requestHistory();
     $('#checkout').click(checkout);
     $('#to-cart').click(requestCart);
+    $('#clear-cart').click(clearCart);
 
     $('body').on('click', '.receipt-card', showReceipt);
 }
