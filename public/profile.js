@@ -22,13 +22,13 @@ function addToCart() {
     quantity = parseInt($('#quantity').val());
 
     $.ajax({
-        url: `http://localhost:5000/addToCart/${pokeID}/${quantity}`,
+        url: `https://ump45-comp-2537-a.herokuapp.com/addToCart/${pokeID}/${quantity}`,
         type: 'GET',
         success: processResponse
     })
 
     $.ajax({
-        url: 'http://localhost:5000/timeline/insert',
+        url: 'https://ump45-comp-2537-a.herokuapp.com/timeline/insert',
         type: 'POST',
         data: {
             text: `has added item ${pokeID} x${quantity} to cart`,
