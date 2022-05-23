@@ -243,4 +243,8 @@ input[type="button"]:active {
         grid-template-columns: auto;
         gap: 5px;
     }
+
+    #profile-pane {
+        grid-template-columns: auto;
+    }
 }
