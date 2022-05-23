@@ -15,6 +15,8 @@ function addToCart() {
         return;
     }
 
+    timestamp = new Date();
+
     currentURL = location.href;
     pokeID = parseInt(currentURL.slice(currentURL.lastIndexOf('/') + 1));
     quantity = parseInt($('#quantity').val());
@@ -23,6 +25,17 @@ function addToCart() {
         url: `http://localhost:5000/addToCart/${pokeID}/${quantity}`,
         type: 'GET',
         success: processResponse
+    })
+
+    $.ajax({
+        url: 'http://localhost:5000/timeline/insert',
+        type: 'POST',
+        data: {
+            text: `has added item ${pokeID} x${quantity} to cart`,
+            hits: 1,
+            time: timestamp.toGMTString()
+        },
+        success: response => {}
     })
 }
 

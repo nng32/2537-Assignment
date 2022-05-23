@@ -115,7 +115,9 @@ app.get('/profile/:id', (req, res) => {
 })
 
 app.get('/timeline/getall', (req, res) => {
-    timelineModel.find({}, (err, timelineevents) => {
+    timelineModel.find({
+        user: req.session.username
+    }, (err, timelineevents) => {
         if (err) {
             console.log("Error " + err);
         } else {

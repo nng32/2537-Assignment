@@ -1,4 +1,6 @@
 function processCheckout(data) {
+    timestamp = new Date();
+
     switch (data) {
         case 'logged out':
             $('#alert').html('You must login to check out your cart.');
@@ -8,6 +10,18 @@ function processCheckout(data) {
             break;
         case 'ok':
             $('#alert').html('Checkout complete.');
+
+            $.ajax({
+                url: 'http://localhost:5000/timeline/insert',
+                type: 'POST',
+                data: {
+                    text: `has purchased items in cart`,
+                    hits: 1,
+                    time: timestamp.toGMTString()
+                },
+                success: response => { }
+            })
+            
             location.reload();
             break;
     }
@@ -138,6 +152,8 @@ function showReceipt() {
 }
 
 function processClearCart(data) {
+    timestamp = new Date();
+
     switch (data) {
         case 'empty':
             $('#alert').html('Your cart is already empty!');
@@ -148,6 +164,17 @@ function processClearCart(data) {
             $('#subtotal').html('$0');
             $('#tax').html('$0');
             $('#total').html('$0');
+
+            $.ajax({
+                url: 'http://localhost:5000/timeline/insert',
+                type: 'POST',
+                data: {
+                    text: `has cleared cart`,
+                    hits: 1,
+                    time: timestamp.toGMTString()
+                },
+                success: response => { }
+            })
             break;
     }
 }
@@ -158,6 +185,8 @@ function clearCart() {
         type: 'GET',
         success: processClearCart
     })
+
+
 }
 
 function setup() {
