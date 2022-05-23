@@ -103,7 +103,7 @@ function searchByName() {
     insertNameIntoTimeline(targetName);
 }
 
-function applyFilters() {
+function applyFilters(saveToHistory) {
     resultList = [];
 
     targetType = $('#poke-type option:selected').val();
@@ -147,7 +147,9 @@ function applyFilters() {
     paginateMenu();
     populateResults(1);
 
-    insertTypeIntoTimeline(targetType);
+    if (saveToHistory) {
+        insertTypeIntoTimeline(targetType);
+    }
 }
 
 function saveNameToHistory() {
@@ -220,7 +222,7 @@ async function makeRequest() {
     }
 
     $('#loading-message').remove();
-    applyFilters();
+    applyFilters(false);
 }
 
 function insertTypeIntoTimeline(pokeType) {
@@ -261,7 +263,7 @@ function setup() {
     makeRequest();
 
     $('#search-filters').click(() => {
-        applyFilters();
+        applyFilters(true);
         saveFilterToHistory();
     });
     $('#search-name').click(() => {
