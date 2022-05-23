@@ -179,7 +179,9 @@ app.get('/timeline/remove/:id', (req, res) => {
 })
 
 app.get('/timeline/clear', (req, res) => {
-    timelineModel.deleteMany({}, (err, data) => {
+    timelineModel.deleteMany({
+        user: req.session.username
+    }, (err, data) => {
         if (err) {
             console.log(err);
         }

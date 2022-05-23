@@ -53,16 +53,13 @@ function removeRequest() {
 }
 
 function processStatus(data) {
-    console.log(data);
-
     if (data == null || data == undefined || data == "") {
         $('#message').html('You must <a class="inline-link" href="./login.html">log in</a> to view your timeline!');
+        $('#clear-timeline').remove();
     }
 }
 
 function requestStatus() {
-    console.log("Getting status");
-
     $.ajax({
         url: 'http://localhost:5000/status',
         type: 'GET',

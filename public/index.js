@@ -12,8 +12,6 @@ function makeRequest() {
     for (i = 0; i < 9; i++) {
         randomID = Math.floor(Math.random() * 899) + 1;
 
-        console.log(randomID);
-
         $.ajax({
             type: 'GET',
             url: `https://pokeapi.co/api/v2/pokemon/${randomID}`,

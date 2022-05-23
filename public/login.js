@@ -26,7 +26,7 @@ function processSignup(data) {
 function loginRequest() {
     console.log(`Attempting login as ${$('#username').val()}`);
     
-    if (!$('#username').val() || !$('#password').val()) {
+    if (!$('#username').val().trim() || !$('#password').val()) {
         $('#alert').html('All fields are required.');
         return;
     }
@@ -35,7 +35,7 @@ function loginRequest() {
         url: 'http://localhost:5000/login',
         type: 'POST',
         data: {
-            username: $('#username').val(),
+            username: $('#username').val().trim(),
             password: $('#password').val()
         },
         success: processLogin
@@ -45,7 +45,7 @@ function loginRequest() {
 function signupRequest() {
     console.log(`Attempting signup as ${$('#username').val()}`);
 
-    if (!$('#username').val() || !$('#password').val()) {
+    if (!$('#username').val().trim() || !$('#password').val()) {
         $('#alert').html('All fields are required.');
         return;
     }
@@ -54,7 +54,7 @@ function signupRequest() {
         url: 'http://localhost:5000/signup',
         type: 'POST',
         data: {
-            username: $('#username').val(),
+            username: $('#username').val().trim(),
             password: $('#password').val()
         },
         success: processSignup
@@ -62,8 +62,6 @@ function signupRequest() {
 }
 
 function processStatus(data) {
-    console.log(`Logged in as ${data}`);
-
     if (data != null && data != undefined && data != "") {
         console.log(`Logged in as ${data}`);
         location.href = `./user/${data}`;
@@ -71,8 +69,6 @@ function processStatus(data) {
 }
 
 function requestStatus() {
-    console.log("Getting status");
-
     $.ajax({
         url: 'http://localhost:5000/status',
         type: 'GET',
