@@ -12,7 +12,7 @@ function processCheckout(data) {
             $('#alert').html('Checkout complete.');
 
             $.ajax({
-                url: 'https://ump45-comp-2537-a.herokuapp.com/timeline/insert',
+                url: 'http://localhost:5000/timeline/insert',
                 type: 'POST',
                 data: {
                     text: `has purchased items in cart`,
@@ -29,7 +29,7 @@ function processCheckout(data) {
 
 function checkout() {
     $.ajax({
-        url: 'https://ump45-comp-2537-a.herokuapp.com/checkout',
+        url: 'http://localhost:5000/checkout',
         type: 'GET',
         success: processCheckout
     })
@@ -83,7 +83,7 @@ function requestCart() {
     $('#clear-cart').show();
 
     $.ajax({
-        url: 'https://ump45-comp-2537-a.herokuapp.com/getCart',
+        url: 'http://localhost:5000/getCart',
         type: 'GET',
         success: populateCart
     })
@@ -126,7 +126,7 @@ async function populateHistory(data) {
 
 function requestHistory() {
     $.ajax({
-        url: 'https://ump45-comp-2537-a.herokuapp.com/getHistory',
+        url: 'http://localhost:5000/getHistory',
         type: 'GET',
         success: populateHistory
     })
@@ -144,7 +144,7 @@ function showReceipt() {
     $('#receipt-header').html(`Order #${receiptIndex}`);
 
     $.ajax({
-        url: `https://ump45-comp-2537-a.herokuapp.com/getHistory/${receiptIndex}`,
+        url: `http://localhost:5000/getHistory/${receiptIndex}`,
         type: 'GET',
         success: populateCart
     })
@@ -165,7 +165,7 @@ function processClearCart(data) {
             $('#total').html('$0');
 
             $.ajax({
-                url: 'https://ump45-comp-2537-a.herokuapp.com/timeline/insert',
+                url: 'http://localhost:5000/timeline/insert',
                 type: 'POST',
                 data: {
                     text: `has cleared cart`,
@@ -180,7 +180,7 @@ function processClearCart(data) {
 
 function clearCart() {
     $.ajax({
-        url: 'https://ump45-comp-2537-a.herokuapp.com/clearCart',
+        url: 'http://localhost:5000/clearCart',
         type: 'GET',
         success: processClearCart
     })
