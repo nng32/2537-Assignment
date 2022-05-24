@@ -1,9 +1,10 @@
 var hasFlippedCard = false;
 var firstCard = undefined;
 var secondCard = undefined;
+var ignoreInputs = false;
 
 function flipClass() {
-    if ($(this).attr('class').includes('lock')) {
+    if (!$(this).attr('class').includes('unlock') || ignoreInputs) {
         return;
     }
 
@@ -18,27 +19,44 @@ function flipClass() {
         // second card flipped
         secondCard = $(this).find('.front-face');
 
+        if (firstCard.parent().attr('id') == secondCard.parent().attr('id')) {
+            resetCardMemory();
+            return;
+        }
+
         if ($(firstCard).attr('src') == $(secondCard).attr('src')) {
             console.log('Target destroyed');
 
-            firstCard.parent().addClass('lock');
-            secondCard.parent().addClass('lock');
+            firstCard.parent().removeClass('unlock');
+            secondCard.parent().removeClass('unlock');
+
+            resetCardMemory();
         }
         else {
             console.log('Mission failed');
 
-            $('#game-grid').children().removeClass('flip');
+            ignoreInputs = true;
 
-            firstCard = undefined;
-            secondCard = undefined;
+            setTimeout(() => {
+                $('#game-grid').children('.unlock').removeClass('flip');
+                ignoreInputs = false;
+            }, 1000);
 
-            hasFlippedCard = false;
+            resetCardMemory();
         }
     }
 }
 
+function resetCardMemory() {
+    firstCard = undefined;
+    secondCard = undefined;
+
+    hasFlippedCard = false;
+}
+
 function setup() {
     $('.game-card').click(flipClass);
+    $('#game-grid').children().addClass('unlock');
 }
 
 $(document).ready(setup);
