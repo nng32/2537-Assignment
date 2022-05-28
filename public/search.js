@@ -229,7 +229,7 @@ function insertTypeIntoTimeline(pokeType) {
     let timestamp = new Date();
 
     $.ajax({
-        url: "http://localhost:3000/timeline/insert",
+        url: "http://localhost:5000/timeline/insert",
         type: "POST",
         data: {
             text: `has filtered for type ${pokeType}`,
@@ -246,7 +246,7 @@ function insertNameIntoTimeline(pokeName) {
     let timestamp = new Date();
 
     $.ajax({
-        url: "http://localhost:3000/timeline/insert",
+        url: "http://localhost:5000/timeline/insert",
         type: "POST",
         data: {
             text: `has filtered for name ${pokeName}`,

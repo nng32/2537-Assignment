@@ -32,7 +32,7 @@ function loginRequest() {
     }
     
     $.ajax({
-        url: 'http://localhost:3000/login',
+        url: 'http://localhost:5000/login',
         type: 'POST',
         data: {
             username: $('#username').val().trim(),
@@ -51,7 +51,7 @@ function signupRequest() {
     }
 
     $.ajax({
-        url: 'http://localhost:3000/signup',
+        url: 'http://localhost:5000/signup',
         type: 'POST',
         data: {
             username: $('#username').val().trim(),
@@ -70,7 +70,7 @@ function processStatus(data) {
 
 function requestStatus() {
     $.ajax({
-        url: 'http://localhost:3000/status',
+        url: 'http://localhost:5000/status',
         type: 'GET',
         success: processStatus
     })

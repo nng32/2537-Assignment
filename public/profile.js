@@ -22,13 +22,13 @@ function addToCart() {
     quantity = parseInt($('#quantity').val());
 
     $.ajax({
-        url: `http://localhost:3000/addToCart/${pokeID}/${quantity}`,
+        url: `http://localhost:5000/addToCart/${pokeID}/${quantity}`,
         type: 'GET',
         success: processResponse
     })
 
     $.ajax({
-        url: 'http://localhost:3000/timeline/insert',
+        url: 'http://localhost:5000/timeline/insert',
         type: 'POST',
         data: {
             text: `has added item ${pokeID} x${quantity} to cart`,
