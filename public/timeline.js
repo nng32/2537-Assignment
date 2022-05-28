@@ -1,7 +1,7 @@
 function loadTimeline() {
     $.ajax({
         type: "GET",
-        url: "https://ump45-comp-2537-a.herokuapp.com/timeline/getall",
+        url: "http://localhost:3000/timeline/getall",
         success: (data) => {
             for (i = 0; i < data.length; i++) {
                 $("#timeline-container").prepend(`
@@ -20,7 +20,7 @@ function loadTimeline() {
 
 function clearTimeline() {
     $.ajax({
-        url: `https://ump45-comp-2537-a.herokuapp.com/timeline/clear`,
+        url: `http://localhost:3000/timeline/clear`,
         type: "GET",
         success: (response) => {
             $('#timeline-container').empty();
@@ -30,7 +30,7 @@ function clearTimeline() {
 
 function increaseHitRequest() {
     $.ajax({
-        url: `https://ump45-comp-2537-a.herokuapp.com/timeline/update/${$(this).attr("id")}`,
+        url: `http://localhost:3000/timeline/update/${$(this).attr("id")}`,
         type: "GET",
         success: (response) => {
             previousHits = parseInt($(this).prev().prev().find('.timeline-hits').html());
@@ -43,7 +43,7 @@ function increaseHitRequest() {
 
 function removeRequest() {
     $.ajax({
-        url: `https://ump45-comp-2537-a.herokuapp.com/timeline/remove/${$(this).attr("id")}`,
+        url: `http://localhost:3000/timeline/remove/${$(this).attr("id")}`,
         type: "GET",
         success: (response) => {
             console.log("Delete successful");
@@ -61,7 +61,7 @@ function processStatus(data) {
 
 function requestStatus() {
     $.ajax({
-        url: 'https://ump45-comp-2537-a.herokuapp.com/status',
+        url: 'http://localhost:3000/status',
         type: 'GET',
         success: processStatus
     })
