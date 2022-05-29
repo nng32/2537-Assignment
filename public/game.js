@@ -3,9 +3,47 @@ var firstCard = undefined;
 var secondCard = undefined;
 var ignoreInputs = false;
 
+var interval;
+var remainingTime = 0;
+
+function startTimer() {
+    if (interval != null) {
+        stopTimer();
+    }
+
+    let difficultyMultiplier = 1.5;
+
+    switch ($('#difficulty option:selected').val()) {
+        case 'easy':
+            difficultyMultiplier = 3;
+            break;
+        case 'medium':
+            difficultyMultiplier = 2;
+            break;
+    }
+
+    remainingTime = Math.floor(rows * columns * difficultyMultiplier);
+
+    interval = setInterval(() => {
+        remainingTime -= 1;
+
+        if (remainingTime < 0) {
+            $('#alert').html("Mission failed, we'll get'em next time.");
+            clearInterval(interval);
+        }
+        else {
+            $('#timer').html(remainingTime.toString().padStart(3, '0'));
+        }
+    }, 1000)
+}
+
+function stopTimer() {
+    clearInterval(interval);
+}
+
 async function generateGrid() {
-    rows = 5;
-    columns = 6;
+    rows = parseInt($('#rows').val());
+    columns = parseInt($('#columns').val());
     pairs = rows * columns / 2;
 
     images = [];
@@ -14,11 +52,12 @@ async function generateGrid() {
     gridHeight = (cardDimensions + 5) * rows;
 
     if (rows * columns % 2 != 0) {
-        alert('Cards must be an even number');
+        $('#alert').html('Cards must be an even number.');
         return;
     }
 
     $('#game-grid').empty();
+    $('#alert').html('Starting game');
 
     // get the art for all pairs
     for (i = 0; i < pairs; i++) {
@@ -55,6 +94,9 @@ async function generateGrid() {
         $(`#${i}`).click(flipClass);
     }
 
+    startTimer();
+    ignoreInputs = false;
+
     $('#game-grid').height(gridHeight);
 
     $('.game-card').width(cardDimensions);
@@ -66,7 +108,7 @@ async function generateGrid() {
 function flipClass() {
     console.log('clicked card');
 
-    if (!$(this).attr('class').includes('unlock') || ignoreInputs) {
+    if (!$(this).attr('class').includes('unlock') || ignoreInputs || remainingTime < 0) {
         return;
     }
 
@@ -95,9 +137,14 @@ function flipClass() {
             secondCard.parent().removeClass('unlock');
 
             resetCardMemory();
+
+            if (!$('.game-card').hasClass('unlock')) {
+                stopTimer();
+                $('#alert').html("That's the way it's done.");
+            }
         }
         else {
-            console.log('Mission failed');
+            console.log('Target undamaged');
 
             ignoreInputs = true;
 
@@ -119,7 +166,7 @@ function resetCardMemory() {
 }
 
 function setup() {
-    generateGrid();
+    $('#start').click(generateGrid);
 }
 
 $(document).ready(setup);
