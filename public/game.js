@@ -6,8 +6,13 @@ var ignoreInputs = false;
 async function generateGrid() {
     rows = 5;
     columns = 4;
-    pairs = 5;
+    pairs = rows * columns / 2;
     images = [];
+
+    if (rows * columns % 2 != 0) {
+        alert('Cards must be an even number');
+        return;
+    }
 
     $('#game-grid').empty();
 
