@@ -7,7 +7,16 @@ async function generateGrid() {
     rows = 5;
     columns = 4;
     pairs = rows * columns / 2;
+
     images = [];
+
+    cardDimensions = $('body').width() / columns;
+    gridHeight = cardDimensions * rows;
+
+    $('#game-grid').height(gridHeight);
+
+    $('.game-card').width(cardDimensions);
+    $('.game-card').height(cardDimensions);
 
     if (rows * columns % 2 != 0) {
         alert('Cards must be an even number');

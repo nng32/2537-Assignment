@@ -1,7 +1,6 @@
 #game-grid {
     display: flex;
     flex-wrap: wrap;
-    width: 600px;
     height: 1000px;
     margin: auto;
     gap: 5px;
