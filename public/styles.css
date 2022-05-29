@@ -169,7 +169,7 @@ input[type="button"]:active {
     gap: 5px;
 }
 
-#history, #receipt-container {
+#history, #receipt-container, #user-container {
     display: grid;
     grid-template-columns: auto;
     gap: 5px;

@@ -37,6 +37,7 @@ const userSchema = new mongoose.Schema({
     password: String,
     firstName: String,
     lastName: String,
+    admin: Boolean,
     cart: Array,
     history: Array
 })
@@ -261,7 +262,8 @@ app.post('/signup', (req, res) => {
                         username: formUsername,
                         password: hash,
                         firstName: formFirstName,
-                        lastName: formLastName
+                        lastName: formLastName,
+                        admin: false
                     })
 
                     req.session.username = formUsername;
@@ -322,6 +324,24 @@ app.get('/info/:username', (req, res) => {
             res.send(data);
         }
     })
+})
+
+app.get('/removeUser/:username', (req, res) => {
+    if (req.params.username == req.session.username) {
+        res.send('delete self');
+    }
+    else {
+        userModel.deleteOne({
+            username: req.params.username
+        }, (err, data) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send('ok');
+            }
+        })        
+    }
 })
 
 app.get('/status', (req, res) => {
