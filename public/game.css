@@ -4,7 +4,7 @@
     height: 1000px;
     margin: auto;
     gap: 5px;
-    perspective: 500px;
+    perspective: 750px;
 }
 
 .game-card {

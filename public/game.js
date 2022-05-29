@@ -5,18 +5,13 @@ var ignoreInputs = false;
 
 async function generateGrid() {
     rows = 5;
-    columns = 4;
+    columns = 6;
     pairs = rows * columns / 2;
 
     images = [];
 
-    cardDimensions = $('body').width() / columns;
-    gridHeight = cardDimensions * rows;
-
-    $('#game-grid').height(gridHeight);
-
-    $('.game-card').width(cardDimensions);
-    $('.game-card').height(cardDimensions);
+    cardDimensions = $('body').width() / columns - 8;
+    gridHeight = (cardDimensions + 5) * rows;
 
     if (rows * columns % 2 != 0) {
         alert('Cards must be an even number');
@@ -59,6 +54,11 @@ async function generateGrid() {
 
         $(`#${i}`).click(flipClass);
     }
+
+    $('#game-grid').height(gridHeight);
+
+    $('.game-card').width(cardDimensions);
+    $('.game-card').height(cardDimensions);
 
     $('#game-grid').children().addClass('unlock');
 }
