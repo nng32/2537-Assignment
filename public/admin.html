@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./styles.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./timeline.js"></script>
+    <script src="./header-mod.js"></script>
+</head>
+<body>
+    <header>
+        <a href="./login.html" class="authlink" id="header-login">Login</a>
+        <a href="./signup.html" class="authlink" id="header-signup">Signup</a>
+        <h1>
+            Pokemon Gallery
+        </h1>
+    </header>
+    <nav>
+        <a href="./index.html" class="navlink">Home</a>
+        <a href="./search.html" class="navlink">Search</a>
+        <a href="./timeline.html" class="navlink">Timeline</a>
+        <a href="./game.html" class="navlink">Memory Game</a>
+    </nav>
+    <article>
+        <p id="message">Manage Users</p>
+        <input id="new-user" type="button" value="New User" />
+        <div id="user-container">
+            <!-- Users go here -->
+            <div class="user-card">
+                <h3>tsubasa</h3>
+                <p><span class="user-first-name">Tsubasa</span> <span class="user-last-name">Kazanari</span></p>
+                <p class="user-admin">Not Admin</p>
+                <input type="button" id="${data[i]._id}" class="edit-button" value="Edit" />
+                <input type="button" id="${data[i]._id}" class="remove-button" value="Remove" />
+            </div>
+        </div>
+    </article>
+    <footer>
+        <p>
+            &copy;2022 UMP45
+        </p>
+        <p>
+            This website uses the PokeAPI.
+        </p>
+    </footer>
+</body>
+</html>

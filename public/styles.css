@@ -120,14 +120,14 @@ input[type="button"]:active {
     margin: 2px;
 }
 
-.poke-card, .history-card, .timeline-card, .receipt-card {
+.poke-card, .history-card, .timeline-card, .receipt-card, .user-card {
     border: 2px solid crimson;
     border-radius: 5px;
     text-decoration: none;
     color: black;
 }
 
-.poke-card, .timeline-card, .receipt-card {
+.poke-card, .timeline-card, .receipt-card, .user-card {
     padding: 5px;
 }
 
