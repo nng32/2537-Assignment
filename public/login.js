@@ -55,7 +55,9 @@ function signupRequest() {
         type: 'POST',
         data: {
             username: $('#username').val().trim(),
-            password: $('#password').val()
+            password: $('#password').val(),
+            firstName: $('#first-name').val().trim(),
+            lastName: $('#last-name').val().trim()
         },
         success: processSignup
     })

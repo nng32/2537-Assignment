@@ -35,6 +35,8 @@ const timelineModel = mongoose.model("events", timelineSchema);
 const userSchema = new mongoose.Schema({
     username: String,
     password: String,
+    firstName: String,
+    lastName: String,
     cart: Array,
     history: Array
 })
@@ -234,6 +236,8 @@ app.post('/login', (req, res) => {
 app.post('/signup', (req, res) => {
     formUsername = req.body.username;
     formPassword = req.body.password;
+    formFirstName = req.body.firstName;
+    formLastName = req.body.lastName;
 
     const saltRounds = 8;
     bcrypt.hash(formPassword, saltRounds, (err, hash) => {
@@ -255,7 +259,9 @@ app.post('/signup', (req, res) => {
                     // create new user if it doesn't exist
                     userModel.create({
                         username: formUsername,
-                        password: hash
+                        password: hash,
+                        firstName: formFirstName,
+                        lastName: formLastName
                     })
 
                     req.session.username = formUsername;
@@ -278,8 +284,43 @@ app.get('/logout', (req, res) => {
 })
 
 app.get('/user/:username', (req, res) => {
-    res.render('user-profile.ejs', {
+    userModel.findOne({
         username: req.params.username
+    }, {}, (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render('user-profile.ejs', {
+                username: req.params.username,
+                firstName: data.firstName,
+                lastName: data.lastName
+            })
+        }
+    })
+})
+
+app.get('/getAllUsers', (req, res) => {
+    userModel.find({}, {}, (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(data);
+        }
+    })
+})
+
+app.get('/info/:username', (req, res) => {
+    userModel.findOne({
+        username: req.params.username
+    }, {}, (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(data);
+        }
     })
 })
 
