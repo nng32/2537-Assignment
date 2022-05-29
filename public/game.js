@@ -7,9 +7,7 @@ var interval;
 var remainingTime = 0;
 
 function startTimer() {
-    if (interval != null) {
-        stopTimer();
-    }
+    stopTimer();
 
     let difficultyMultiplier = 1.5;
 
@@ -28,6 +26,7 @@ function startTimer() {
         remainingTime -= 1;
 
         if (remainingTime < 0) {
+            insertFailureIntoTimeline();
             $('#alert').html("Mission failed, we'll get'em next time.");
             clearInterval(interval);
         }
@@ -38,7 +37,10 @@ function startTimer() {
 }
 
 function stopTimer() {
-    clearInterval(interval);
+    if (interval != null) {
+        clearInterval(interval);
+    }
+
 }
 
 async function generateGrid() {
@@ -51,13 +53,14 @@ async function generateGrid() {
     cardDimensions = $('body').width() / columns - 8;
     gridHeight = (cardDimensions + 5) * rows;
 
-    if (rows * columns % 2 != 0) {
-        $('#alert').html('Cards must be an even number.');
+    if (!validateFields()) {
         return;
     }
 
     $('#game-grid').empty();
     $('#alert').html('Starting game');
+
+    stopTimer();
 
     // get the art for all pairs
     for (i = 0; i < pairs; i++) {
@@ -138,8 +141,10 @@ function flipClass() {
 
             resetCardMemory();
 
+            // all cards have been matched
             if (!$('.game-card').hasClass('unlock')) {
                 stopTimer();
+                insertSuccessIntoTimeline();
                 $('#alert').html("That's the way it's done.");
             }
         }
@@ -163,6 +168,64 @@ function resetCardMemory() {
     secondCard = undefined;
 
     hasFlippedCard = false;
+}
+
+function insertSuccessIntoTimeline() {
+    timestamp = new Date();
+
+    $.ajax({
+        url: "http://localhost:5000/timeline/insert",
+        type: "POST",
+        data: {
+            text: `has won game of dimensions ${rows} * ${columns} with ${remainingTime}s remaining`,
+            hits: 1,
+            time: timestamp.toGMTString()
+        },
+        success: (response) => {
+            console.log(response);
+        }
+    })
+}
+
+function insertFailureIntoTimeline() {
+    timestamp = new Date();
+    
+    $.ajax({
+        url: "http://localhost:5000/timeline/insert",
+        type: "POST",
+        data: {
+            text: `has lost game of dimensions ${rows} * ${columns}`,
+            hits: 1,
+            time: timestamp.toGMTString()
+        },
+        success: (response) => {
+            console.log(response);
+        }
+    })
+}
+
+function validateFields() {
+    if (isNaN(rows) || isNaN(columns)) {
+        $('#alert').html('You must enter numbers for rows and columns.');
+        return false;   
+    }
+
+    if (rows * columns % 2 != 0) {
+        $('#alert').html('Total cards must be an even number.');
+        return false;
+    }
+
+    if (rows * columns <= 0) {
+        $('#alert').html('At least two cards must be generated.');
+        return false;
+    }
+
+    if (rows * columns > 100) {
+        $('#alert').html('At most 100 cards can be generated.');
+        return false;
+    }
+
+    return true;
 }
 
 function setup() {
