@@ -1,6 +1,6 @@
 function redirectUser(data) {
     if (!data) {
-        location.href = './index.html'
+        location.href = 'http://localhost:5000/index.html'
     }
 }
 

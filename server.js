@@ -367,15 +367,18 @@ app.post('/newUser', (req, res) => {
 app.get('/edit/:username', (req, res) => {
     userModel.findOne({
         username: req.params.username
-    }, {}, (err, data) => {
+    }, {}, (err, results) => {
         if (err) {
             console.log(err);
+        }
+        else if (results == null) {
+            res.send('Unable to find user')
         }
         else {
             res.render('edit-user.ejs', {
                 username: req.params.username,
-                firstName: data.firstName,
-                lastName: data.lastName
+                firstName: results.firstName,
+                lastName: results.lastName
             })
         }
     })

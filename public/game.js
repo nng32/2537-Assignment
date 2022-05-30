@@ -115,10 +115,9 @@ function flipClass() {
         return;
     }
 
-    $(this).toggleClass('flip');
-
     if (!hasFlippedCard) {
         // this is the first card flipped
+        $(this).toggleClass('flip');
         firstCard = $(this).find('.front-face');
         hasFlippedCard = true;
     }
@@ -128,9 +127,11 @@ function flipClass() {
 
         // unflipping the same card
         if (firstCard.parent().attr('id') == secondCard.parent().attr('id')) {
-            resetCardMemory();
+            console.log('Cannot cancel matching');
             return;
         }
+        
+        $(this).toggleClass('flip');
 
         // the two cards have the same image
         if ($(firstCard).attr('src') == $(secondCard).attr('src')) {
