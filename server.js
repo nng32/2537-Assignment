@@ -343,6 +343,51 @@ app.get('/edit/:username', (req, res) => {
     })
 })
 
+app.post('/editUser/:username', (req, res) => {
+    if (req.body.password == '') {
+        userModel.updateOne({
+            username: req.params.username
+        }, {
+            username: req.body.username,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName
+        }, (err, results) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send('ok');
+            }
+        })
+    }
+    else {
+        const saltRounds = 8;
+
+        bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                userModel.updateOne({
+                    username: req.params.username
+                }, {
+                    username: req.body.username,
+                    password: hash,
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName
+                }, (err, results) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        res.send('ok');
+                    }
+                })   
+            }
+        })
+    }
+})
+
 app.get('/removeUser/:username', (req, res) => {
     if (req.params.username == req.session.username) {
         res.send('delete self');
