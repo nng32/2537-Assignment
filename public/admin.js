@@ -48,8 +48,13 @@ function requestRemoveUser() {
     })
 }
 
+function redirectToEditProfile() {
+    location.href = `./edit/${$(this).attr('id')}`
+}
+
 function setup() {
     requestAllUsers();
+    $('body').on('click', '.edit-button', redirectToEditProfile)
     $('body').on('click', '.remove-button', requestRemoveUser)
 }
 
