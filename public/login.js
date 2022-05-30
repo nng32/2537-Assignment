@@ -8,7 +8,12 @@ function processLogin(data) {
             break;
         case "ok":
             $('#alert').html("Login complete.");
-            location.href = `./user/${data.username}`;
+            if (data.admin) {
+                location.href = './admin.html';
+            }
+            else {
+                location.href = `./user/${data.username}`;
+            }
     }
 }
 

@@ -198,8 +198,6 @@ app.post('/login', (req, res) => {
 
     userModel.findOne({
         username: formUsername
-    }, {
-        password: 1
     }, (err, data) => {
         console.log(data);
 
@@ -216,17 +214,21 @@ app.post('/login', (req, res) => {
                 if (result) {
                     req.session.username = formUsername;
                     req.session.authenticated = true;
+                    req.session.admin = data.admin;
                     res.send({
                         status: "ok",
-                        username: req.session.username
+                        username: req.session.username,
+                        admin: req.session.admin
                     });
                 }
                 else {
                     req.session.username = null;
                     req.session.authenticated = false;
+                    req.session.admin = false;
                     res.send({
                         status: "unmatching",
-                        username: req.session.username
+                        username: req.session.username,
+                        admin: false
                     });
                 }
             })
@@ -463,6 +465,15 @@ app.get('/status', (req, res) => {
         res.send(null);
     }
 
+})
+
+app.get('/isAdmin', (req, res) => {
+    if (req.session.authenticated) {
+        res.send(req.session.admin);
+    }
+    else {
+        res.send(false);
+    }
 })
 
 app.get('/addToCart/:id/:qty', (req, res) => {

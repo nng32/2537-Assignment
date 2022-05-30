@@ -37,13 +37,12 @@ function requestRemoveUser() {
             switch (response) {
                 case 'ok':
                     $('#alert').html('Successfully deleted user.');
+                    $(this).parent().remove();
                     break;
                 case 'delete self':
                     $('#alert').html('You cannot delete yourself.');
                     break;
             }
-
-            $(this).parent().remove();
         }
     })
 }

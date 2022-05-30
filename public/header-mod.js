@@ -8,11 +8,25 @@ function modifyHeader(data) {
     }
 }
 
+function addAdminToHeader(data) {
+    if (data) {
+        $('header').prepend(`
+            <a href="http://localhost:5000/admin.html" class="authlink" id="header-dashboard">Dashboard</a>
+        `)
+    }
+}
+
 function checkProfile() {
     $.ajax({
         url: 'http://localhost:5000/status',
         type: 'GET',
         success: modifyHeader
+    })
+
+    $.ajax({
+        url: 'http://localhost:5000/isAdmin',
+        type: 'GET',
+        success: addAdminToHeader
     })
 }
 
