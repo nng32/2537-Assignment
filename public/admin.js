@@ -23,7 +23,7 @@ function processAllUsers(data) {
 
 function requestAllUsers() {
     $.ajax({
-        url: 'http://localhost:5000/getAllUsers',
+        url: 'https://ump45-comp-2537-a.herokuapp.com/getAllUsers',
         type: 'GET',
         success: processAllUsers
     })
@@ -31,7 +31,7 @@ function requestAllUsers() {
 
 function requestRemoveUser() {
     $.ajax({
-        url: `http://localhost:5000/removeUser/${$(this).attr('id')}`,
+        url: `https://ump45-comp-2537-a.herokuapp.com/removeUser/${$(this).attr('id')}`,
         type: 'GET',
         success: response => {
             switch (response) {

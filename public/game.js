@@ -175,7 +175,7 @@ function insertSuccessIntoTimeline() {
     timestamp = new Date();
 
     $.ajax({
-        url: "http://localhost:5000/timeline/insert",
+        url: "https://ump45-comp-2537-a.herokuapp.com/timeline/insert",
         type: "POST",
         data: {
             text: `has won game of dimensions ${rows} * ${columns} with ${remainingTime}s remaining`,
@@ -192,7 +192,7 @@ function insertFailureIntoTimeline() {
     timestamp = new Date();
     
     $.ajax({
-        url: "http://localhost:5000/timeline/insert",
+        url: "https://ump45-comp-2537-a.herokuapp.com/timeline/insert",
         type: "POST",
         data: {
             text: `has lost game of dimensions ${rows} * ${columns}`,

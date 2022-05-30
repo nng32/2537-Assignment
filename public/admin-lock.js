@@ -1,12 +1,12 @@
 function redirectUser(data) {
     if (!data) {
-        location.href = 'http://localhost:5000/index.html'
+        location.href = 'https://ump45-comp-2537-a.herokuapp.com/index.html'
     }
 }
 
 function checkIfAdmin() {
     $.ajax({
-        url: 'http://localhost:5000/isAdmin',
+        url: 'https://ump45-comp-2537-a.herokuapp.com/isAdmin',
         type: 'GET',
         success: redirectUser
     })

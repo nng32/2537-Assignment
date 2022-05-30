@@ -19,7 +19,7 @@ function requestEditUser() {
     }
 
     $.ajax({
-        url: `http://localhost:5000/editUser/${userToEdit}`,
+        url: `https://ump45-comp-2537-a.herokuapp.com/editUser/${userToEdit}`,
         type: 'POST',
         data: {
             username: $('#username').val().trim(),

@@ -37,7 +37,7 @@ function loginRequest() {
     }
     
     $.ajax({
-        url: 'http://localhost:5000/login',
+        url: 'https://ump45-comp-2537-a.herokuapp.com/login',
         type: 'POST',
         data: {
             username: $('#username').val().trim(),
@@ -56,7 +56,7 @@ function signupRequest() {
     }
 
     $.ajax({
-        url: 'http://localhost:5000/signup',
+        url: 'https://ump45-comp-2537-a.herokuapp.com/signup',
         type: 'POST',
         data: {
             username: $('#username').val().trim(),
@@ -77,7 +77,7 @@ function processStatus(data) {
 
 function requestStatus() {
     $.ajax({
-        url: 'http://localhost:5000/status',
+        url: 'https://ump45-comp-2537-a.herokuapp.com/status',
         type: 'GET',
         success: processStatus
     })

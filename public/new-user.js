@@ -15,9 +15,9 @@ function requestNewUser() {
         $('#alert').html('All fields are required.');
         return;
     }
-    
+
     $.ajax({
-        url: `http://localhost:5000/newUser`,
+        url: `https://ump45-comp-2537-a.herokuapp.com/newUser`,
         type: 'POST',
         data: {
             username: $('#username').val().trim(),

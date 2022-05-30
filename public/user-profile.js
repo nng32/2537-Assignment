@@ -12,7 +12,7 @@ function processCheckout(data) {
             $('#alert').html('Checkout complete.');
 
             $.ajax({
-                url: 'http://localhost:5000/timeline/insert',
+                url: 'https://ump45-comp-2537-a.herokuapp.com/timeline/insert',
                 type: 'POST',
                 data: {
                     text: `has purchased items in cart`,
@@ -29,7 +29,7 @@ function processCheckout(data) {
 
 function checkout() {
     $.ajax({
-        url: 'http://localhost:5000/checkout',
+        url: 'https://ump45-comp-2537-a.herokuapp.com/checkout',
         type: 'GET',
         success: processCheckout
     })
@@ -83,7 +83,7 @@ function requestCart() {
     $('#clear-cart').show();
 
     $.ajax({
-        url: 'http://localhost:5000/getCart',
+        url: 'https://ump45-comp-2537-a.herokuapp.com/getCart',
         type: 'GET',
         success: populateCart
     })
@@ -126,7 +126,7 @@ async function populateHistory(data) {
 
 function requestHistory() {
     $.ajax({
-        url: 'http://localhost:5000/getHistory',
+        url: 'https://ump45-comp-2537-a.herokuapp.com/getHistory',
         type: 'GET',
         success: populateHistory
     })
@@ -144,7 +144,7 @@ function showReceipt() {
     $('#receipt-header').html(`Order #${receiptIndex}`);
 
     $.ajax({
-        url: `http://localhost:5000/getHistory/${receiptIndex}`,
+        url: `https://ump45-comp-2537-a.herokuapp.com/getHistory/${receiptIndex}`,
         type: 'GET',
         success: populateCart
     })
@@ -165,7 +165,7 @@ function processClearCart(data) {
             $('#total').html('$0');
 
             $.ajax({
-                url: 'http://localhost:5000/timeline/insert',
+                url: 'https://ump45-comp-2537-a.herokuapp.com/timeline/insert',
                 type: 'POST',
                 data: {
                     text: `has cleared cart`,
@@ -180,7 +180,7 @@ function processClearCart(data) {
 
 function clearCart() {
     $.ajax({
-        url: 'http://localhost:5000/clearCart',
+        url: 'https://ump45-comp-2537-a.herokuapp.com/clearCart',
         type: 'GET',
         success: processClearCart
     })
