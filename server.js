@@ -326,6 +326,42 @@ app.get('/info/:username', (req, res) => {
     })
 })
 
+app.post('/newUser', (req, res) => {
+    formUsername = req.body.username;
+    formPassword = req.body.password;
+    formFirstName = req.body.firstName;
+    formLastName = req.body.lastName;
+
+    const saltRounds = 8;
+    bcrypt.hash(formPassword, saltRounds, (err, hash) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            // check if the user already exists
+            userModel.findOne({
+                username: formUsername
+            }, (err, data) => {
+                if (data != null) {
+                    res.send("already exists");
+                }
+                else {
+                    // create new user if it doesn't exist
+                    userModel.create({
+                        username: formUsername,
+                        password: hash,
+                        firstName: formFirstName,
+                        lastName: formLastName,
+                        admin: req.body.admin
+                    })
+
+                    res.send("ok");
+                }
+            })
+        }
+    })
+})
+
 app.get('/edit/:username', (req, res) => {
     userModel.findOne({
         username: req.params.username
@@ -344,35 +380,18 @@ app.get('/edit/:username', (req, res) => {
 })
 
 app.post('/editUser/:username', (req, res) => {
-    if (req.body.password == '') {
-        userModel.updateOne({
-            username: req.params.username
-        }, {
-            username: req.body.username,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName
-        }, (err, results) => {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                res.send('ok');
-            }
-        })
-    }
-    else {
-        const saltRounds = 8;
-
-        bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
-            if (err) {
-                console.log(err);
-            }
-            else {
+    // check if user exists
+    userModel.findOne({
+        username: req.body.username
+    }, (err, data) => {
+        // user doesn't exist
+        if (data == null || data.username == req.params.username) {
+            // no password provided, so password won't be changed
+            if (req.body.password == '') {
                 userModel.updateOne({
                     username: req.params.username
                 }, {
                     username: req.body.username,
-                    password: hash,
                     firstName: req.body.firstName,
                     lastName: req.body.lastName
                 }, (err, results) => {
@@ -382,10 +401,40 @@ app.post('/editUser/:username', (req, res) => {
                     else {
                         res.send('ok');
                     }
-                })   
+                })
             }
-        })
-    }
+            // hash a new password
+            else {
+                const saltRounds = 8;
+
+                bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        userModel.updateOne({
+                            username: req.params.username
+                        }, {
+                            username: req.body.username,
+                            password: hash,
+                            firstName: req.body.firstName,
+                            lastName: req.body.lastName
+                        }, (err, results) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else {
+                                res.send('ok');
+                            }
+                        })
+                    }
+                })
+            }
+        }
+        else {
+            res.send("already exists");
+        }
+    })
 })
 
 app.get('/removeUser/:username', (req, res) => {

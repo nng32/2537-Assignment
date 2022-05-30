@@ -29,33 +29,38 @@ function requestAllUsers() {
     })
 }
 
-function processRemoveUser(data) {
-    switch (data) {
-        case 'ok':
-            $('#alert').html('Successfully deleted user.');
-            break;
-        case 'delete self':
-            $('#alert').html('You cannot delete yourself.');
-            break;
-    }
-}
-
 function requestRemoveUser() {
     $.ajax({
         url: `http://localhost:5000/removeUser/${$(this).attr('id')}`,
         type: 'GET',
-        success: processRemoveUser
+        success: response => {
+            switch (response) {
+                case 'ok':
+                    $('#alert').html('Successfully deleted user.');
+                    break;
+                case 'delete self':
+                    $('#alert').html('You cannot delete yourself.');
+                    break;
+            }
+
+            $(this).parent().remove();
+        }
     })
 }
 
 function redirectToEditProfile() {
-    location.href = `./edit/${$(this).attr('id')}`
+    location.href = `./edit/${$(this).attr('id')}`;
+}
+
+function redirectToNewuser() {
+    location.href = './new-user.html';
 }
 
 function setup() {
     requestAllUsers();
-    $('body').on('click', '.edit-button', redirectToEditProfile)
-    $('body').on('click', '.remove-button', requestRemoveUser)
+    $('#new-user').click(redirectToNewuser);
+    $('body').on('click', '.edit-button', redirectToEditProfile);
+    $('body').on('click', '.remove-button', requestRemoveUser);
 }
 
 $(document).ready(setup);

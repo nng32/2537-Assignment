@@ -45,7 +45,7 @@ function loginRequest() {
 function signupRequest() {
     console.log(`Attempting signup as ${$('#username').val()}`);
 
-    if (!$('#username').val().trim() || !$('#password').val()) {
+    if (!$('#username').val().trim() || !$('#password').val() || !$('#first-name').val() || !$('#last-name').val()) {
         $('#alert').html('All fields are required.');
         return;
     }

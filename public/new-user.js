@@ -1,38 +1,37 @@
-function processEditUser(data) {
+function processNewUser(data) {
     switch (data) {
         case 'already exists':
             $('#alert').html('Username already exists.');
             break;
         case 'ok':
-            $('#alert').html('User has been updated.');
+            $('#alert').html('User has been created.');
             location.href = '../admin.html';
             break;
     }
 }
 
-function requestEditUser() {
-    userToEdit = location.href.split('/')[location.href.split('/').length - 1];
-
-    if (!$('#username').val().trim() || !$('#first-name').val() || !$('#last-name').val()) {
+function requestNewUser() {
+    if (!$('#username').val().trim() || !$('#password').val() || !$('#first-name').val() || !$('#last-name').val()) {
         $('#alert').html('All fields are required.');
         return;
     }
-
+    
     $.ajax({
-        url: `http://localhost:5000/editUser/${userToEdit}`,
+        url: `http://localhost:5000/newUser`,
         type: 'POST',
         data: {
             username: $('#username').val().trim(),
             password: $('#password').val(),
             firstName: $('#first-name').val().trim(),
-            lastName: $('#last-name').val().trim()
+            lastName: $('#last-name').val().trim(),
+            admin: $('#admin').prop('checked')
         },
-        success: processEditUser
+        success: processNewUser
     })
 }
 
 function setup() {
-    $('#submit').click(requestEditUser);
+    $('#submit').click(requestNewUser);
 }
 
 $(document).ready(setup);
