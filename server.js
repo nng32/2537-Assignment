@@ -326,6 +326,23 @@ app.get('/info/:username', (req, res) => {
     })
 })
 
+app.get('/edit/:username', (req, res) => {
+    userModel.findOne({
+        username: req.params.username
+    }, {}, (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render('edit-user.ejs', {
+                username: req.params.username,
+                firstName: data.firstName,
+                lastName: data.lastName
+            })
+        }
+    })
+})
+
 app.get('/removeUser/:username', (req, res) => {
     if (req.params.username == req.session.username) {
         res.send('delete self');

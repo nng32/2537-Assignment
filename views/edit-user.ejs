@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <link rel="stylesheet" href="../styles.css" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edit User</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="../edit-user.js"></script>
+        <script src="../header-mod.js"></script>
+    </head>
+    <body>
+        <header>
+            <a href="../login.html" class="authlink" id="header-login">Login</a>
+            <a href="../signup.html" class="authlink" id="header-signup">Signup</a>
+            <h1>
+                Pokemon Gallery
+            </h1>
+        </header>
+        <nav>
+            <a href="../index.html" class="navlink">Home</a>
+            <a href="../search.html" class="navlink">Search</a>
+            <a href="../timeline.html" class="navlink">Timeline</a>
+            <a href="../game.html" class="navlink">Memory Game</a>
+        </nav>
+        <article>
+            <h3>
+                Edit <%= username %>
+            </h3>
+            <p id="alert" class="red-text">
+            
+            </p>
+            <div>
+                <input type="text" id="username" placeholder="Username" value="<%= username %>" /><br />
+                <input type="password" id="password" placeholder="Keep Current Password" /><br />
+                <input type="text" id="first-name" placeholder="First Name" value="<%= firstName %>" /><br />
+                <input type="text" id="last-name" placeholder="Last Name" value="<%= lastName %>" /><br />
+                <input type="button" id="submit" value="Update User" />
+            </div>
+        </article>
+        <footer>
+            <p>
+                &copy;2022 UMP45
+            </p>
+            <p>
+                This website uses the PokeAPI.
+            </p>
+        </footer>
+    </body>
+</html>
